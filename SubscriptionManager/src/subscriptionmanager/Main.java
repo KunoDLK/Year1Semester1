@@ -5,6 +5,8 @@
  */
 package subscriptionmanager;
 
+import subscriptionmanager.Subscription.SubPackages;
+
 /**
  *
  * @author YOUR NAME
@@ -23,7 +25,7 @@ public class Main {
         consoleMethods = new ConsoleMethods();
 
         System.out.println("Hello World!");
-        
+
         MainApplicationLoop();
 
         System.exit(0);
@@ -41,11 +43,45 @@ public class Main {
                 case 0:
                     RunLoop = false;
                     break;
+                case 1:
+                    AddNewSubscription();
+                    break;
+
+                case 2:
+                    SummariesSubscriptions();
+                    break;
+
+                case 3:
+                    SelectMonthsSubscriptions();
+                    break;
+
+                case 4:
+                    FindUserAndDisplay();
+                    break;
 
                 default:
-                    System.out.println("Menu Item: " + menuChoice);
+                    System.out.println("Unknown menu item: " + menuChoice);
                     break;
             }
         } while (RunLoop);
+    }
+
+    private static void SummariesSubscriptions() {
+
+    }
+
+    private static void FindUserAndDisplay() {
+
+    }
+
+    private static void SelectMonthsSubscriptions() {
+
+    }
+
+    private static void AddNewSubscription() {
+
+        Subscription newSubscription = new Subscription();
+
+        newSubscription.SubPackage = consoleMethods.GetValidatedChar(Subscription.PackageLetters);
     }
 }
