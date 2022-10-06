@@ -48,7 +48,7 @@ public class ConsoleMethods {
 				if (returnInt >= minInt && returnInt <= MaxInt) {
 					return returnInt;
 				} else {
-					System.out.println("^^^^Not a menu option");
+					System.out.println("^^^^Not a option");
 					// go round loop again
 				}
 
@@ -85,7 +85,7 @@ public class ConsoleMethods {
 					}
 				}
 
-				System.out.println("^^^^Not a menu option");
+				System.out.println("^^^^Not a option");
 				// go round loop again
 
 			} catch (NumberFormatException e) {

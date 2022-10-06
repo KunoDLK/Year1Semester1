@@ -26,7 +26,9 @@ public class Subscription {
 
     public final static char[] PackageLetters = { 'B', 'S', 'G' };
 
-    public final static SubPackages[] IndexedSubPackages = {SubPackages.Bronze, SubPackages.Silver, SubPackages.Gold};
+    public final static SubPackages[] IndexedSubPackages = { SubPackages.Bronze, SubPackages.Silver, SubPackages.Gold };
+
+    public final static int[] PackageDurations = { 1, 3, 6, 12 };
 
     public String StartDate;
 
@@ -43,8 +45,7 @@ public class Subscription {
     public static SubPackages GetPackage(char packageSelected) {
 
         for (int i = 0; i < PackageLetters.length; i++) {
-            if (PackageLetters[i] == packageSelected)
-            {
+            if (PackageLetters[i] == packageSelected) {
                 return IndexedSubPackages[i];
             }
         }
