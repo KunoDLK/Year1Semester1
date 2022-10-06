@@ -2,8 +2,6 @@ package subscriptionmanager;
 
 import java.util.Scanner;
 
-import subscriptionmanager.Subscription.SubPackages;
-
 public class ConsoleMethods {
 
 	public Scanner scanner;
@@ -22,8 +20,8 @@ public class ConsoleMethods {
 	 * @return user choice, int
 	 */
 	public int RunMenu() {
-		System.out.println(
-				"1. Enter new Subscription\n2. Display Summary of subscriptions\n3. Display Summary of subscription for Selected Month\n4. Find and display subscription\n0. Exit");
+		System.out.print(
+				"1. Enter new Subscription\n2. Display Summary of subscriptions\n3. Display Summary of subscription for Selected Month\n4. Find and display subscription\n0. Exit\nInput Menu Number: ");
 
 		int menuOption = GetValidatedInteger(0, 4);
 		return menuOption;
@@ -100,8 +98,45 @@ public class ConsoleMethods {
 		return returnInt;
 	}
 
-	public SubPackages GetValidatedChar(char[] packageletters) {
-		return null;
+	/**
+	 * @param validLetters
+	 * @return
+	 */
+	public char GetValidatedChar(char[] validLetters) {
+		
+		char returnChar = 0;
+		boolean validated = false;
+
+		do {
+			try {
+
+				String userInputStr = scanner.nextLine();
+
+				if (userInputStr.length() > 1)
+				{
+					System.out.println("^^^^Expected Single Character");
+					continue;
+				}
+				userInputStr = userInputStr.toUpperCase();
+				returnChar = userInputStr.charAt(0);
+
+				for (int letter : validLetters) {
+					if (returnChar == letter) {
+						return returnChar;
+					}
+				}
+
+				System.out.println("^^^^Not a valid option");
+				// go round loop again
+
+			} catch (StringIndexOutOfBoundsException e) {
+
+				System.out.println("^^^^Incorrect Input");
+				// go round loop again
+			}
+		} while (!validated);
+
+		return returnChar;
 	}
 
 }

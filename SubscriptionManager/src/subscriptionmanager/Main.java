@@ -5,8 +5,6 @@
  */
 package subscriptionmanager;
 
-import subscriptionmanager.Subscription.SubPackages;
-
 /**
  *
  * @author YOUR NAME
@@ -82,6 +80,11 @@ public class Main {
 
         Subscription newSubscription = new Subscription();
 
-        newSubscription.SubPackage = consoleMethods.GetValidatedChar(Subscription.PackageLetters);
+        System.out.print("Please enter package type Gold, Silver or Bronze ('G', 'S', 'B'): ");
+
+        char packageSelected = consoleMethods.GetValidatedChar(Subscription.PackageLetters);
+
+        newSubscription.SubPackage = Subscription.GetPackage(packageSelected);
+
     }
 }
