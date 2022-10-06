@@ -42,7 +42,7 @@ public class ConsoleMethods {
 		do {
 			try {
 
-				String userInputStr = scanner.nextLine();
+				String userInputStr = GetString();
 				returnInt = Integer.parseInt(userInputStr);
 
 				if (returnInt >= minInt && returnInt <= MaxInt) {
@@ -76,7 +76,7 @@ public class ConsoleMethods {
 		do {
 			try {
 
-				String userInputStr = scanner.nextLine();
+				String userInputStr = GetString();
 				returnInt = Integer.parseInt(userInputStr);
 
 				for (int value : validValues) {
@@ -110,7 +110,7 @@ public class ConsoleMethods {
 		do {
 			try {
 
-				String userInputStr = scanner.nextLine();
+				String userInputStr = GetString();
 
 				if (userInputStr.length() > 1)
 				{
@@ -139,4 +139,7 @@ public class ConsoleMethods {
 		return returnChar;
 	}
 
+	public String GetString() {
+		return scanner.nextLine();
+	}
 }

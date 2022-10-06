@@ -38,6 +38,8 @@ public class Subscription {
 
     public PaymentTerms PaymentTerm;
 
+    public String Name;
+
     public static SubPackages GetPackage(char packageSelected) {
 
         for (int i = 0; i < PackageLetters.length; i++) {

@@ -80,6 +80,12 @@ public class Main {
 
         Subscription newSubscription = new Subscription();
 
+        System.out.print("Please enter Customer's name: ");
+
+        String name = consoleMethods.GetString();
+
+        newSubscription.Name = name;
+
         System.out.print("Please enter package type Gold, Silver or Bronze ('G', 'S', 'B'): ");
 
         char packageSelected = consoleMethods.GetValidatedChar(Subscription.PackageLetters);
