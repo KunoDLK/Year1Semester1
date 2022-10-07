@@ -4,6 +4,8 @@
  */
 package subscriptionmanager;
 
+import java.time.LocalDateTime;
+
 /**
  * DTO for a subscription
  * 
@@ -51,5 +53,48 @@ public class Subscription {
         }
 
         return null;
+    }
+
+    public boolean ValidateDiscountCode() {
+
+        if (DiscountCode.length() != 6)
+            return false;
+
+        for (int i = 0; i < 2; i++) {
+
+            char letter = DiscountCode.charAt(i);
+
+            if (!isLetterAToZ(letter))
+                return false;
+        }
+
+        int currentYear = LocalDateTime.now().getYear();
+
+        String validYearStr = DiscountCode.substring(3, 2);
+
+        try {
+
+            int validYear = Integer.parseInt(validYearStr);
+
+            if (currentYear % 100 != validYear)
+                return false;
+
+        } catch (NumberFormatException e) {
+
+            return false;
+        }
+
+        
+
+        return true;
+    }
+
+    private boolean isLetterAToZ(char letter) {
+
+        if (letter >= 'A' && letter <= 'Z') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

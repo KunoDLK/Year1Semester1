@@ -83,20 +83,22 @@ public class Main {
         System.out.print("Please enter Customer's name: ");
 
         String name = consoleMethods.GetString();
-
         newSubscription.Name = name;
 
         System.out.print("Please enter package type Gold, Silver or Bronze ('G', 'S', 'B'): ");
 
         char packageSelected = consoleMethods.GetValidatedChar(Subscription.PackageLetters);
-
         newSubscription.SubPackage = Subscription.GetPackage(packageSelected);
 
         System.out.print("Please enter subscription duration 1, 3, 6, 12 (months): ");
 
         int subDuration = consoleMethods.GetValidatedInteger(Subscription.PackageDurations);
-
         newSubscription.Duration = subDuration;
+
+        String discountCode = consoleMethods.GetString();
+        newSubscription.DiscountCode = discountCode.toUpperCase();
+        newSubscription.ValidateDiscountCode();
+
 
     }
 }
