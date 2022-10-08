@@ -95,10 +95,29 @@ public class Main {
         int subDuration = consoleMethods.GetValidatedInteger(Subscription.PackageDurations);
         newSubscription.Duration = subDuration;
 
-        String discountCode = consoleMethods.GetString();
-        newSubscription.DiscountCode = discountCode.toUpperCase();
-        newSubscription.ValidateDiscountCode();
+        Boolean loop = true;
+        do {
+            
+            System.out.print("Please enter discount code ('-' for no discount code): ");
+            String discountCode = consoleMethods.GetString();
+            
+            Boolean validCode = newSubscription.ValidateAndSetDiscountCode(discountCode.toUpperCase());
 
+            if (discountCode.equals("-"))
+            {
+                loop = false;
+            }
+            else if (!validCode)
+            {
+                System.out.println("^^^^Invalid code");
+            }
+            else
+            {
+                System.out.println("Code Validated");
+                loop = false;
+            }
+        
+        } while (loop);
 
     }
 }

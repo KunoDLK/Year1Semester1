@@ -4,8 +4,6 @@
  */
 package subscriptionmanager;
 
-import java.time.LocalDateTime;
-
 /**
  * DTO for a subscription
  * 
@@ -44,6 +42,10 @@ public class Subscription {
 
     public String Name;
 
+    public Subscription() {
+        DiscountCode = "-";
+    }
+
     public static SubPackages GetPackage(char packageSelected) {
 
         for (int i = 0; i < PackageLetters.length; i++) {
@@ -55,27 +57,33 @@ public class Subscription {
         return null;
     }
 
-    public boolean ValidateDiscountCode() {
+    public boolean ValidateAndSetDiscountCode(String discountCode) {
 
-        if (DiscountCode.length() != 6)
+        DiscountCode = "-";
+
+        // code length validation
+        if (discountCode.length() != 6)
             return false;
 
+        // checks that the first two chars are letters
         for (int i = 0; i < 2; i++) {
 
-            char letter = DiscountCode.charAt(i);
+            char letter = discountCode.charAt(i);
 
             if (!isLetterAToZ(letter))
                 return false;
         }
 
-        int currentYear = LocalDateTime.now().getYear();
+        // code date validation
+        int currentYear = DateHelper.GetCurrentYear();
 
-        String validYearStr = DiscountCode.substring(3, 2);
+        String validYearStr = discountCode.substring(2, 4);
 
         try {
 
             int validYear = Integer.parseInt(validYearStr);
 
+            // checks if the the last two numbers of the year match the discount code
             if (currentYear % 100 != validYear)
                 return false;
 
@@ -84,8 +92,36 @@ public class Subscription {
             return false;
         }
 
-        
+        int currentMonth = DateHelper.GetCurrentMonth();
+        char monthChar = discountCode.charAt(4);
+        char validChar;
+        if (currentMonth > 6)
+        {
+            validChar = 'E';
+        }
+        else
+        {
+            validChar = 'L';
+        }
 
+        if (monthChar != validChar)
+            return false;
+
+            try {
+
+                String discountPercentageChar = discountCode.substring(5);
+                int discountPercentage = Integer.parseInt(discountPercentageChar);
+    
+                if (discountPercentage < 1 && discountPercentage > 9)
+                    return true;
+    
+            } catch (NumberFormatException e) {
+    
+                return false;
+            }
+
+
+        DiscountCode = discountCode;
         return true;
     }
 

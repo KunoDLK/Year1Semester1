@@ -21,4 +21,14 @@ public class DateHelper {
         return sdf.format(cal.getTime());
     }
 
+    public static int GetCurrentYear() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.YEAR);
+    }
+
+    public static int GetCurrentMonth() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.MONTH);
+    }
+
 }
