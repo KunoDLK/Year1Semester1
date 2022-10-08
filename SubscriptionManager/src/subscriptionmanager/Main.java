@@ -119,5 +119,7 @@ public class Main {
         
         } while (loop);
 
+
+        System.out.println(newSubscription.GetDiscoutCode());
     }
 }
