@@ -34,7 +34,7 @@ public class Subscription {
 
     public int Duration;
 
-    public String DiscountCode;
+    private String DiscountCode;
 
     public SubPackages SubPackage;
 
@@ -44,6 +44,11 @@ public class Subscription {
 
     public Subscription() {
         DiscountCode = "-";
+    }
+
+    public String GetDiscoutCode()
+    {
+        return DiscountCode;
     }
 
     public static SubPackages GetPackage(char packageSelected) {
@@ -97,11 +102,11 @@ public class Subscription {
         char validChar;
         if (currentMonth > 6)
         {
-            validChar = 'E';
+            validChar = 'L';
         }
         else
         {
-            validChar = 'L';
+            validChar = 'E';
         }
 
         if (monthChar != validChar)
