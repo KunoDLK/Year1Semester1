@@ -199,6 +199,7 @@ public class ConsoleMethods {
 		String stringToPrint = "|";
 
 		switch (alignment) {
+
 			case Center:
 				for (int i = 0; i < (23 - firstItem.length() / 2); i++) {
 					stringToPrint += " ";
@@ -210,6 +211,7 @@ public class ConsoleMethods {
 				int centerPos = firstItem.indexOf(':');
 
 				if (centerPos == -1) {
+
 					System.out.println("ERROR: Unable to center text no ':' to center by");
 					return;
 				}
@@ -239,6 +241,7 @@ public class ConsoleMethods {
 		while (stringToPrint.length() < 48) {
 			stringToPrint += " ";
 		}
+
 		stringToPrint += "|";
 		System.out.println(stringToPrint);
 	}

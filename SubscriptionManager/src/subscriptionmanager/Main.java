@@ -137,12 +137,9 @@ public class Main {
         char[] validChars = { 'Y', 'N' };
         char enteredChar = consoleMethods.GetValidatedChar(validChars);
 
-        if (enteredChar == 'N')
-        {
+        if (enteredChar == 'N') {
             newSubscription.PaymentTerm = PaymentTerms.Monthly;
-        }
-        else
-        {
+        } else {
             newSubscription.PaymentTerm = PaymentTerms.OneOff;
         }
 
