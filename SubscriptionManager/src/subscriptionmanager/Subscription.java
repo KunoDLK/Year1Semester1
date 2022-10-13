@@ -224,5 +224,33 @@ public class Subscription {
         return this.Cost;
     }
 
+    public String GetTermAsString() {
+        if (PaymentTerm == PaymentTerms.OneOff) {
+            return "One-Off";
+
+        } else {
+            return PaymentTerms.Monthly.name();
+        }
+    }
+
+    public String GetDurationAsString() {
+        switch (this.Duration) {
+            case 1:
+                return "One";
+
+            case 3:
+                return "Three";
+
+            case 6:
+                return "Six";
+
+            case 12:
+                return "Twelve";
+
+            default:
+                return "N/A";
+        }
+    }
+
     // #endregion Private Methods
 }

@@ -5,8 +5,6 @@
  */
 package subscriptionmanager;
 
-import javax.xml.validation.Validator;
-
 import subscriptionmanager.Subscription.PaymentTerms;
 
 /**
@@ -47,6 +45,7 @@ public class Main {
                     break;
                 case 1:
                     Subscription newSubscription = CreateNewSubscription();
+                    consoleMethods.DisplaySubscription(newSubscription);
                     break;
 
                 case 2:
@@ -149,8 +148,6 @@ public class Main {
 
         // calculates cost and sets the start date
         newSubscription.StartSubscription();
-
-        System.out.println(newSubscription.GetCost());
 
         return newSubscription;
     }

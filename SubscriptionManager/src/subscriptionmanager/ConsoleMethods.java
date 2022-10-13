@@ -2,6 +2,8 @@ package subscriptionmanager;
 
 import java.util.Scanner;
 
+import subscriptionmanager.Subscription.PaymentTerms;
+
 public class ConsoleMethods {
 
 	public Scanner scanner;
@@ -103,7 +105,7 @@ public class ConsoleMethods {
 	 * @return
 	 */
 	public char GetValidatedChar(char[] validLetters) {
-		
+
 		char returnChar = 0;
 		boolean validated = false;
 
@@ -112,8 +114,7 @@ public class ConsoleMethods {
 
 				String userInputStr = GetString();
 
-				if (userInputStr.length() > 1)
-				{
+				if (userInputStr.length() > 1) {
 					System.out.println("^^^^Expected Single Character");
 					continue;
 				}
@@ -141,5 +142,104 @@ public class ConsoleMethods {
 
 	public String GetString() {
 		return scanner.nextLine();
+	}
+
+	public void DisplaySubscription(Subscription subscription) {
+		DrawHorizontalLine();
+		DrawSubscriptionLine();
+
+		String item = "Customer: " + subscription.Name;
+		DrawSubscriptionLine(item, "", HorizontalAlignment.columned);
+
+		DrawSubscriptionLine();
+
+		item = "Date: " + subscription.StartDate;
+		String secondItem = "Discount Code: " + subscription.GetDiscountCode();
+		DrawSubscriptionLine(item, secondItem, HorizontalAlignment.columned);
+
+		item = "Package: " + subscription.SubPackage.name();
+		secondItem = "Duration: " + subscription.GetDurationAsString();
+		DrawSubscriptionLine(item, secondItem, HorizontalAlignment.columned);
+
+		item = "Terms: " + subscription.GetTermAsString();
+		DrawSubscriptionLine(item, "", HorizontalAlignment.columned);
+
+		DrawSubscriptionLine();
+
+		// Formate the cost value string so it displays nicely
+		item = subscription.GetTermAsString() + " Subscription: £";
+		String price = String.valueOf(subscription.GetCost());
+		int decimalPointPos = price.indexOf('.');
+		while (price.length() < decimalPointPos + 3) {
+			price += "0";
+		}
+		item += price.substring(0, decimalPointPos + 3);
+
+		DrawSubscriptionLine(item, "", HorizontalAlignment.Center);
+
+		DrawSubscriptionLine();
+
+		DrawHorizontalLine();
+	}
+
+	private enum HorizontalAlignment {
+		Center,
+		columned
+	}
+
+	private void DrawHorizontalLine() {
+		System.out.println("+===============================================+");
+	}
+
+	private void DrawSubscriptionLine() {
+		System.out.println("|                                               |");
+	}
+
+	private void DrawSubscriptionLine(String firstItem, String secondItem, HorizontalAlignment alignment) {
+		String stringToPrint = "|";
+
+		switch (alignment) {
+			case Center:
+				for (int i = 0; i < (23 - firstItem.length() / 2); i++) {
+					stringToPrint += " ";
+				}
+				stringToPrint += firstItem;
+				break;
+
+			case columned:
+				int centerPos = firstItem.indexOf(':');
+
+				if (centerPos == -1) {
+					System.out.println("ERROR: Unable to center text no ':' to center by");
+					return;
+				}
+
+				for (int i = stringToPrint.length(); i < (10 - centerPos); i++) {
+					stringToPrint += " ";
+				}
+				stringToPrint += firstItem;
+
+				if (!secondItem.equals("")) {
+
+					centerPos = secondItem.indexOf(':');
+
+					if (centerPos == -1) {
+						System.out.println("ERROR: Unable to center text no ':' to center by");
+						return;
+					}
+
+					for (int i = stringToPrint.length(); i < (39 - centerPos); i++) {
+						stringToPrint += " ";
+					}
+					stringToPrint += secondItem;
+				}
+				break;
+		}
+
+		while (stringToPrint.length() < 48) {
+			stringToPrint += " ";
+		}
+		stringToPrint += "|";
+		System.out.println(stringToPrint);
 	}
 }
