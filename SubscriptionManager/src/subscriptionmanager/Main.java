@@ -5,6 +5,10 @@
  */
 package subscriptionmanager;
 
+import javax.xml.validation.Validator;
+
+import subscriptionmanager.Subscription.PaymentTerms;
+
 /**
  *
  * @author YOUR NAME
@@ -42,7 +46,7 @@ public class Main {
                     RunLoop = false;
                     break;
                 case 1:
-                    AddNewSubscription();
+                    Subscription newSubscription = CreateNewSubscription();
                     break;
 
                 case 2:
@@ -76,14 +80,26 @@ public class Main {
 
     }
 
-    private static void AddNewSubscription() {
+    private static Subscription CreateNewSubscription() {
 
         Subscription newSubscription = new Subscription();
 
-        System.out.print("Please enter Customer's name: ");
+        Boolean validated = false;
 
-        String name = consoleMethods.GetString();
-        newSubscription.Name = name;
+        do {
+            System.out.print("Please enter Customer's name: ");
+
+            String name = consoleMethods.GetString();
+
+            if (name.length() <= 25) {
+                newSubscription.Name = name;
+                validated = true;
+
+            } else {
+                System.out.println("^^^^Name too long (25 characters max)");
+            }
+
+        } while (!validated);
 
         System.out.print("Please enter package type Gold, Silver or Bronze ('G', 'S', 'B'): ");
 
@@ -95,31 +111,47 @@ public class Main {
         int subDuration = consoleMethods.GetValidatedInteger(Subscription.PackageDurations);
         newSubscription.Duration = subDuration;
 
-        Boolean loop = true;
+        validated = false;
         do {
-            
+
             System.out.print("Please enter discount code ('-' for no discount code): ");
             String discountCode = consoleMethods.GetString();
-            
+
             Boolean validCode = newSubscription.ValidateAndSetDiscountCode(discountCode.toUpperCase());
 
-            if (discountCode.equals("-"))
-            {
-                loop = false;
-            }
-            else if (!validCode)
-            {
+            if (discountCode.equals("-")) {
+                validated = true;
+
+            } else if (!validCode) {
                 System.out.println("^^^^Invalid code");
-            }
-            else
-            {
+
+            } else {
                 System.out.println("Code Validated");
-                loop = false;
+                validated = true;
             }
-        
-        } while (loop);
 
+        } while (!validated);
 
-        System.out.println(newSubscription.GetDiscoutCode());
+        // gets what term the subscription is
+        System.out.print("Would you like to pay upfront, with a 5% discount ('Y'/'N'): ");
+
+        char[] validChars = { 'Y', 'N' };
+        char enteredChar = consoleMethods.GetValidatedChar(validChars);
+
+        if (enteredChar == 'N')
+        {
+            newSubscription.PaymentTerm = PaymentTerms.Monthly;
+        }
+        else
+        {
+            newSubscription.PaymentTerm = PaymentTerms.OneOff;
+        }
+
+        // calculates cost and sets the start date
+        newSubscription.StartSubscription();
+
+        System.out.println(newSubscription.GetCost());
+
+        return newSubscription;
     }
 }

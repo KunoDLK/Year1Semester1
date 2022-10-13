@@ -14,7 +14,7 @@ import java.util.Calendar;
  */
 public class DateHelper {
 
-    public static String getDate() {
+    public static String GetCurrentDate() {
         
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
