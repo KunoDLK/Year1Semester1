@@ -62,6 +62,27 @@ public class Subscription {
         DiscountCode = "-";
     }
 
+    public Subscription(String FileStorageLine) {
+        String[] strArray = FileStorageLine.split("\\t");
+
+        StartDate = strArray[0];
+
+        SubPackage = GetPackage(strArray[1].charAt(0));
+
+        Duration = Integer.parseInt(strArray[2]);
+
+        DiscountCode = strArray[3];
+
+        if (strArray[4].equals("O")) {
+            PaymentTerm = PaymentTerms.OneOff;
+            
+        } else {
+            PaymentTerm = PaymentTerms.Monthly;
+        }
+
+        Name = strArray[6];
+    }
+
     // #endregion Constructor
 
     // #region Public Methods
