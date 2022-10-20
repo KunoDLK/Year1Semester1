@@ -50,6 +50,7 @@ public class Main {
                 case 1:
                     Subscription newSubscription = CreateNewSubscription();
                     consoleMethods.DisplaySubscription(newSubscription);
+                    FileIO.AddSubscriptionToFile(newSubscription);
                     break;
 
                 case 2:
