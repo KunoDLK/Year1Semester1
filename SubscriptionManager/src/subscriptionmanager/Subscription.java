@@ -4,6 +4,9 @@
  */
 package subscriptionmanager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * DTO for a subscription
  * 
@@ -75,12 +78,12 @@ public class Subscription {
 
         if (strArray[4].equals("O")) {
             PaymentTerm = PaymentTerms.OneOff;
-            
+
         } else {
             PaymentTerm = PaymentTerms.Monthly;
         }
 
-        Cost = (double)Integer.parseInt(strArray[5]) / 100;
+        Cost = (double) Integer.parseInt(strArray[5]) / 100;
 
         Name = strArray[6];
     }
@@ -273,6 +276,34 @@ public class Subscription {
             default:
                 return "N/A";
         }
+    }
+
+    public static HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> OrginiseSubscriptions(ArrayList<Subscription> subscriptionList) {
+
+        HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>> organizedSubscriptions = new HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>>();
+
+        for (String month : DateHelper.Months) {
+
+            organizedSubscriptions.put(month, new HashMap<Subscription.SubPackages, ArrayList<Subscription>>());
+        }
+
+        organizedSubscriptions.forEach((k, v) -> {
+            v.put(SubPackages.Bronze, new ArrayList<Subscription>());
+            v.put(SubPackages.Silver, new ArrayList<Subscription>());
+            v.put(SubPackages.Gold, new ArrayList<Subscription>());
+        });
+
+        // Place subscriptions into organized hash map
+        for (Subscription subscription : subscriptionList) {
+
+            String key1 = subscription.StartDate.substring(3, 6);
+
+            SubPackages key2 = subscription.SubPackage;
+
+            organizedSubscriptions.get(key1).get(key2).add(subscription);
+        }
+
+        return organizedSubscriptions;
     }
 
     // #endregion Private Methods

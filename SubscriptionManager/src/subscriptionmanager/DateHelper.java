@@ -14,6 +14,8 @@ import java.util.Calendar;
  */
 public class DateHelper {
 
+    public static final String[] Months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
     public static String GetCurrentDate() {
         
         Calendar cal = Calendar.getInstance();
