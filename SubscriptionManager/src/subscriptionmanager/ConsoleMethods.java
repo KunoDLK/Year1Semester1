@@ -2,8 +2,6 @@ package subscriptionmanager;
 
 import java.util.Scanner;
 
-import subscriptionmanager.Subscription.PaymentTerms;
-
 public class ConsoleMethods {
 
 	public Scanner scanner;

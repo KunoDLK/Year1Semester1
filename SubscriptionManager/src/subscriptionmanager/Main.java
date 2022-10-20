@@ -44,10 +44,11 @@ public class Main {
                     RunLoop = false;
                     break;
                 case 1:
+                    FileIO.GetAllSubscriptions();
                     Subscription newSubscription = CreateNewSubscription();
                     consoleMethods.DisplaySubscription(newSubscription);
                     break;
-
+                    
                 case 2:
                     SummariesSubscriptions();
                     break;
