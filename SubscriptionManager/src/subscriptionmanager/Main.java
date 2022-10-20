@@ -5,6 +5,9 @@
  */
 package subscriptionmanager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import subscriptionmanager.Subscription.PaymentTerms;
 
 /**
@@ -44,11 +47,10 @@ public class Main {
                     RunLoop = false;
                     break;
                 case 1:
-                    FileIO.GetAllSubscriptions();
                     Subscription newSubscription = CreateNewSubscription();
                     consoleMethods.DisplaySubscription(newSubscription);
                     break;
-                    
+
                 case 2:
                     SummariesSubscriptions();
                     break;
@@ -69,6 +71,26 @@ public class Main {
     }
 
     private static void SummariesSubscriptions() {
+
+        System.out.print("Reading file");
+        ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions();
+        System.out.println("...DONE");
+
+        double totalCost = 0;
+        HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>> orginisedSubscriptions = new HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>>();
+
+        orginisedSubscriptions.put("Jan", null)
+
+        for (Subscription subscription : subscriptionList) {
+            totalCost += subscription.GetCost();
+
+        }
+
+        System.out.print("Total number of subscriptions: ");
+        System.out.println(subscriptionList.size());
+
+        System.out.print("Average monthly subscription fee: ");
+        System.out.println(totalCost / subscriptionList.size());
 
     }
 

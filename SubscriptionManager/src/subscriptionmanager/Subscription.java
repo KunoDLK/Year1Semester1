@@ -80,6 +80,8 @@ public class Subscription {
             PaymentTerm = PaymentTerms.Monthly;
         }
 
+        Cost = (double)Integer.parseInt(strArray[5]) / 100;
+
         Name = strArray[6];
     }
 
