@@ -147,20 +147,20 @@ public class ConsoleMethods {
 		DrawSubscriptionLine();
 
 		String item = "Customer: " + subscription.Name;
-		DrawSubscriptionLine(item, "", HorizontalAlignment.columned);
+		DrawSubscriptionLine(item, "", HorizontalAlignment.Columned);
 
 		DrawSubscriptionLine();
 
 		item = "Date: " + subscription.StartDate;
 		String secondItem = "Discount Code: " + subscription.GetDiscountCode();
-		DrawSubscriptionLine(item, secondItem, HorizontalAlignment.columned);
+		DrawSubscriptionLine(item, secondItem, HorizontalAlignment.Columned);
 
 		item = "Package: " + subscription.SubPackage.name();
 		secondItem = "Duration: " + subscription.GetDurationAsString();
-		DrawSubscriptionLine(item, secondItem, HorizontalAlignment.columned);
+		DrawSubscriptionLine(item, secondItem, HorizontalAlignment.Columned);
 
 		item = "Terms: " + subscription.GetTermAsString();
-		DrawSubscriptionLine(item, "", HorizontalAlignment.columned);
+		DrawSubscriptionLine(item, "", HorizontalAlignment.Columned);
 
 		DrawSubscriptionLine();
 
@@ -182,7 +182,7 @@ public class ConsoleMethods {
 
 	private enum HorizontalAlignment {
 		Center,
-		columned
+		Columned
 	}
 
 	private void DrawHorizontalLine() {
@@ -205,7 +205,7 @@ public class ConsoleMethods {
 				stringToPrint += firstItem;
 				break;
 
-			case columned:
+			case Columned:
 				int centerPos = firstItem.indexOf(':');
 
 				if (centerPos == -1) {
