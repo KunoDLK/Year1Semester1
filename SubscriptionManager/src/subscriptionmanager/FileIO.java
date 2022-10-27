@@ -41,7 +41,9 @@ public class FileIO {
 
         public static void AddSubscriptionToFile(Subscription subscription) {
 
-                String fileString = "";
+                System.out.print("Writing to file");
+
+                String fileString = subscription.ConvertToFileString();
 
                 try {
 
@@ -53,11 +55,14 @@ public class FileIO {
 
                         FileWriter fileWriter = new FileWriter("SubscriptionManager/current.txt", true);
                         fileWriter.append(fileString);
+                        fileWriter.append("\r\n");
                         fileWriter.close();
 
                 } catch (IOException e) {
                         System.out.println("Failed to create file");
                         e.printStackTrace();
                 }
+
+                System.out.println("...Done");
         }
 }

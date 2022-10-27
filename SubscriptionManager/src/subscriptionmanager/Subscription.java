@@ -278,7 +278,8 @@ public class Subscription {
         }
     }
 
-    public static HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> OrginiseSubscriptions(ArrayList<Subscription> subscriptionList) {
+    public static HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> OrginiseSubscriptions(
+            ArrayList<Subscription> subscriptionList) {
 
         HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>> organizedSubscriptions = new HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>>();
 
@@ -304,6 +305,20 @@ public class Subscription {
         }
 
         return organizedSubscriptions;
+    }
+
+    public String ConvertToFileString() {
+        String fileString = "";
+
+        fileString += this.StartDate + "\t";
+        fileString += this.SubPackage.name().charAt(0) + "\t";
+        fileString += this.Duration + "\t";
+        fileString += this.GetDiscountCode() + "\t";
+        fileString += this.GetTermAsString().charAt(0) + "\t";
+        fileString += String.valueOf((int) (this.GetCost() * 100)) + "\t";
+        fileString += this.Name;
+
+        return fileString;
     }
 
     // #endregion Private Methods
