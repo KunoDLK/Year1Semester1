@@ -5,6 +5,8 @@
  */
 package subscriptionmanager;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +20,7 @@ import subscriptionmanager.Subscription.SubPackages;
 public class Main {
 
     static ConsoleMethods consoleMethods;
+    static DecimalFormat decimalFormatter;
 
     /**
      * @param args the command line arguments
@@ -27,6 +30,8 @@ public class Main {
         // System.out.printf("The current date is %s \n", currentDate);
 
         consoleMethods = new ConsoleMethods();
+        decimalFormatter = new DecimalFormat("#.##");
+        decimalFormatter.setRoundingMode(RoundingMode.HALF_UP);
 
         System.out.println("Hello World!");
 
@@ -108,11 +113,11 @@ public class Main {
         System.out.print("Total number of subscriptions: ");
         System.out.println(subscriptionList.size());
 
-        System.out.print("Average monthly subscription: ");
-        System.out.println((float) subscriptionList.size() / 12);
+        System.out.print("Average monthly subscriptions: ");
+        System.out.println(decimalFormatter.format(subscriptionList.size() / 12));
 
-        System.out.print("Average monthly subscription fee: ");
-        System.out.println(totalCost / subscriptionList.size());
+        System.out.print("Average monthly subscription fee: £");
+        System.out.println(decimalFormatter.format(totalCost / subscriptionList.size()));
 
         System.out.println(months);
         System.out.println(totalSubs);
@@ -195,22 +200,21 @@ public class Main {
         System.out.print(" : ");
         System.out.println(totalSubs);
 
-        System.out.print("Average subscription fee: £ ");
-        System.out.println(totalCost / totalSubs);
-        System.out.println(2);
+        System.out.print("Average subscription fee: £");
+        System.out.println(decimalFormatter.format(totalCost / totalSubs));
 
         System.out.println("Percentage of subscriptions:");
-        System.out.print("Bronze: ");
-        System.out.print(monthBronzeSubs.size() / (double) totalSubs * 100);
-        System.out.println(" %");
+        System.out.print("Bronze:\t");
+        System.out.print(decimalFormatter.format(monthBronzeSubs.size() / (double) totalSubs * 100));
+        System.out.println("%");
 
-        System.out.print("Silver: ");
-        System.out.print(monthSilverSubs.size() / (double) totalSubs * 100);
-        System.out.println(" %");
+        System.out.print("Silver:\t");
+        System.out.print(decimalFormatter.format(monthSilverSubs.size() / (double) totalSubs * 100));
+        System.out.println("%");
 
-        System.out.print("Gold: ");
-        System.out.print(monthGoldSubs.size() / (double) totalSubs * 100);
-        System.out.println(" %");
+        System.out.print("Gold:\t");
+        System.out.print(decimalFormatter.format(monthGoldSubs.size() / (double) totalSubs * 100));
+        System.out.println("%");
 
     }
 
