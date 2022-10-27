@@ -143,7 +143,7 @@ public class ConsoleMethods {
 		return scanner.nextLine();
 	}
 
-	public void DisplaySubscription(Subscription subscription) {
+	public void  DisplaySubscription(Subscription subscription) {
 		DrawHorizontalLine();
 		DrawSubscriptionLine();
 
