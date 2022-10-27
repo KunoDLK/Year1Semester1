@@ -6,6 +6,8 @@ public class ConsoleMethods {
 
 	public Scanner scanner;
 
+	// #region Constructor
+
 	/**
 	 * constructor for ConsoleMethods class
 	 */
@@ -13,6 +15,10 @@ public class ConsoleMethods {
 
 		scanner = new Scanner(System.in);
 	}
+
+	// #endregion Constructor
+
+	// #region Pubic Methods
 
 	/**
 	 * Displays menu to the console, gets a validated response from console
@@ -100,8 +106,10 @@ public class ConsoleMethods {
 	}
 
 	/**
-	 * @param validLetters
-	 * @return
+	 * Get's a single char from console
+	 * 
+	 * @param validLetters the letters that are valid
+	 * @returns inputted char
 	 */
 	public char GetValidatedChar(char[] validLetters) {
 
@@ -139,11 +147,19 @@ public class ConsoleMethods {
 		return returnChar;
 	}
 
+	/**
+	 * @returns string from console
+	 */
 	public String GetString() {
 		return scanner.nextLine();
 	}
 
-	public void  DisplaySubscription(Subscription subscription) {
+	/**
+	 * Displays subscription as defined in the spec
+	 * 
+	 * @param subscription sub to display
+	 */
+	public void DisplaySubscription(Subscription subscription) {
 		DrawHorizontalLine();
 		DrawSubscriptionLine();
 
@@ -180,6 +196,10 @@ public class ConsoleMethods {
 
 		DrawHorizontalLine();
 	}
+
+	// #endregion Pubic Methods
+
+	// #region Private Methods
 
 	private enum HorizontalAlignment {
 		Center,
@@ -244,4 +264,5 @@ public class ConsoleMethods {
 		stringToPrint += "|";
 		System.out.println(stringToPrint);
 	}
+	// #endregion Private Methods
 }
