@@ -20,6 +20,7 @@ public class ConsoleMethods {
 	 * @return user choice, int
 	 */
 	public int RunMenu() {
+		System.out.println();
 		System.out.print(
 				"1. Enter new Subscription\n2. Display Summary of subscriptions\n3. Display Summary of subscription for Selected Month\n4. Find and display subscription\n0. Exit\nInput Menu Number: ");
 

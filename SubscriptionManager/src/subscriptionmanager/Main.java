@@ -74,9 +74,7 @@ public class Main {
 
     private static void SummariesSubscriptions() {
 
-        System.out.print("Reading file");
-        ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions();
-        System.out.println("...DONE");
+        ArrayList<Subscription> subscriptionList = ReadFile();
 
         HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> organizedSubscriptions = Subscription
                 .OrginiseSubscriptions(subscriptionList);
@@ -121,11 +119,44 @@ public class Main {
         System.out.println(bronzeSubs);
         System.out.println(silverSubs);
         System.out.println(goldSubs);
+
+    }
+
+    private static ArrayList<Subscription> ReadFile() {
+        System.out.print("Reading file");
+        ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions();
+        System.out.println("...DONE");
         System.out.println();
+        return subscriptionList;
     }
 
     private static void FindUserAndDisplay() {
 
+        System.out.print("Input Name to search for: ");
+        String searchString;
+        do {
+            searchString = consoleMethods.GetString().toLowerCase();
+            
+        } while (searchString.isEmpty());
+
+        ArrayList<Subscription> subscriptionList = ReadFile();
+        ArrayList<Subscription> searchResults = new ArrayList<Subscription>();
+
+        for (Subscription subscription : subscriptionList) {
+
+            if (subscription.Name.toLowerCase().contains(searchString)) {
+
+                searchResults.add(subscription);
+            }
+        }
+
+        System.out.print("Search results:");
+        System.out.println(searchResults.size());
+
+        for (Subscription subscription : searchResults) {
+
+            consoleMethods.DisplaySubscription(subscription);
+        }
     }
 
     private static void SelectMonthsSubscriptions() {
@@ -135,9 +166,7 @@ public class Main {
         System.out.print("Select month (1-12): ");
         int month = consoleMethods.GetValidatedInteger(1, 12);
 
-        System.out.print("Reading file");
-        ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions();
-        System.out.println("...DONE");
+        ArrayList<Subscription> subscriptionList = ReadFile();
 
         HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> organizedSubscriptions = Subscription
                 .OrginiseSubscriptions(subscriptionList);
@@ -148,7 +177,7 @@ public class Main {
         ArrayList<Subscription> monthBronzeSubs = monthSubs.get(Subscription.SubPackages.Bronze);
         ArrayList<Subscription> monthSilverSubs = monthSubs.get(Subscription.SubPackages.Silver);
         ArrayList<Subscription> monthGoldSubs = monthSubs.get(Subscription.SubPackages.Gold);
-        
+
         for (Subscription subscription : monthBronzeSubs) {
             totalCost += subscription.GetCost();
         }
@@ -182,7 +211,6 @@ public class Main {
         System.out.print("Gold: ");
         System.out.print(monthGoldSubs.size() / (double) totalSubs * 100);
         System.out.println(" %");
-        System.out.println();
 
     }
 
