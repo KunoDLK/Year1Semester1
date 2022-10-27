@@ -2,6 +2,9 @@ package subscriptionmanager;
 
 import java.util.Scanner;
 
+/**
+ * Methods to get specific inputs from user
+ */
 public class ConsoleMethods {
 
 	public Scanner scanner;
