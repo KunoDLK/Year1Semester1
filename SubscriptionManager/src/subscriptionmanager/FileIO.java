@@ -7,8 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to read and right subs from file
+ */
 public class FileIO {
 
+        /**
+         * Get's all subscriptions from the file
+         * 
+         * @return array list of subs
+         */
         public static ArrayList<Subscription> GetAllSubscriptions() {
 
                 ArrayList<Subscription> SubscriptionList = new ArrayList<Subscription>();
@@ -39,6 +47,11 @@ public class FileIO {
                 return SubscriptionList;
         }
 
+        /**
+         * Adds subscription to file
+         * 
+         * @param subscription subscription to add
+         */
         public static void AddSubscriptionToFile(Subscription subscription) {
 
                 System.out.print("Writing to file");
