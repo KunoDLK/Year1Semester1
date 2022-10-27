@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package subscriptionmanager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * DTO for a subscription
+ * class for subscription 
+ * with some helpful methods for converting to and from properties
  * 
  * @author kleeuwkent
  */
@@ -61,10 +58,18 @@ public class Subscription {
 
     // #region Constructor
 
+    /*
+     * Constructor to make empty subscription object
+     */
     public Subscription() {
         DiscountCode = "-";
     }
 
+    /**
+     * Constructor to populate subscription from the line stored in file
+     * 
+     * @param FileStorageLine string from file
+     */
     public Subscription(String FileStorageLine) {
         String[] strArray = FileStorageLine.split("\\t");
 
@@ -92,10 +97,26 @@ public class Subscription {
 
     // #region Public Methods
 
+    /**
+     * @return returns discount code
+     */
     public String GetDiscountCode() {
         return DiscountCode;
     }
 
+    /**
+     * @return returns cost
+     */
+    public double GetCost() {
+        return this.Cost;
+    }
+    
+    /**
+     * Converts from char to enum of package type
+     * 
+     * @param packageSelected char 'G', 'S', 'B'
+     * @return null if not valid char
+     */
     public static SubPackages GetPackage(char packageSelected) {
 
         for (int i = 0; i < PackageLetters.length; i++) {
@@ -183,6 +204,8 @@ public class Subscription {
     /**
      * Calculates the cost of the subscription
      * and sets the start date to today
+     * 
+     * @return true if subscription is valid and started
      */
     public boolean StartSubscription() {
 
@@ -211,11 +234,13 @@ public class Subscription {
 
         this.Cost = SubscriptionRates[subPackageIndex][durationIndex];
 
+        // knocks 5%off is payed upfront
         if (PaymentTerm == PaymentTerms.OneOff) {
             this.Cost *= this.Duration;
             this.Cost *= 0.95;
         }
 
+        // Knocks off the discount from the discount code
         if (!DiscountCode.equals("-")) {
             char discountChar = DiscountCode.charAt(5);
             Double discount = Double.parseDouble("0.0" + String.valueOf(discountChar));
@@ -227,29 +252,10 @@ public class Subscription {
         return true;
     }
 
-    // #endregion Public Methods
-
-    // #region Private Methods
 
     /**
-     * Checks if a character is a english upper case letter A-Z
-     * 
-     * @param letter letter in question
-     * @return true/false if is a letter
+     * @returns payment term as a string "One-Off"/"Monthly"
      */
-    private boolean isLetterAToZ(char letter) {
-
-        if (letter >= 'A' && letter <= 'Z') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public double GetCost() {
-        return this.Cost;
-    }
-
     public String GetTermAsString() {
         if (PaymentTerm == PaymentTerms.OneOff) {
             return "One-Off";
@@ -259,6 +265,9 @@ public class Subscription {
         }
     }
 
+    /**
+     * @returns number as spelt out word
+     */
     public String GetDurationAsString() {
         switch (this.Duration) {
             case 1:
@@ -278,16 +287,24 @@ public class Subscription {
         }
     }
 
+    /**
+     * Organizes subscriptions in to a structured data structure sorted by month and package type
+     * 
+     * @param subscriptionList list of subscriptions
+     * @return organized subscription
+     */
     public static HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> OrginiseSubscriptions(
             ArrayList<Subscription> subscriptionList) {
 
         HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>> organizedSubscriptions = new HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>>();
 
+        // adds entires for each month
         for (String month : DateHelper.Months) {
 
             organizedSubscriptions.put(month, new HashMap<Subscription.SubPackages, ArrayList<Subscription>>());
         }
 
+        // Adds entries for each package type for each month
         organizedSubscriptions.forEach((k, v) -> {
             v.put(SubPackages.Bronze, new ArrayList<Subscription>());
             v.put(SubPackages.Silver, new ArrayList<Subscription>());
@@ -307,6 +324,11 @@ public class Subscription {
         return organizedSubscriptions;
     }
 
+    /**
+     * Converse subscription object to the string line found in file
+     * 
+     * @returns String line
+     */
     public String ConvertToFileString() {
         String fileString = "";
 
@@ -319,6 +341,25 @@ public class Subscription {
         fileString += this.Name;
 
         return fileString;
+    }
+
+    // #endregion Public Methods
+
+    // #region Private Methods
+
+    /**
+     * Checks if a character is a english upper case letter A-Z
+     * 
+     * @param letter letter in question
+     * @return true/false if is a letter
+     */
+    private boolean isLetterAToZ(char letter) {
+
+        if (letter >= 'A' && letter <= 'Z') {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // #endregion Private Methods
