@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package subscriptionmanager;
 
 import java.math.RoundingMode;
@@ -14,8 +9,9 @@ import subscriptionmanager.Subscription.PaymentTerms;
 import subscriptionmanager.Subscription.SubPackages;
 
 /**
- *
- * @author YOUR NAME
+ * Main class of application
+ * Subscriptions manager
+ * @author Kuno DLK
  */
 public class Main {
 
@@ -23,11 +19,11 @@ public class Main {
     static DecimalFormat decimalFormatter;
 
     /**
+     * Main constructor
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // String currentDate = DateHelper.getDate();
-        // System.out.printf("The current date is %s \n", currentDate);
 
         consoleMethods = new ConsoleMethods();
         decimalFormatter = new DecimalFormat("#.##");
@@ -36,6 +32,8 @@ public class Main {
         System.out.println("Hello World!");
 
         MainApplicationLoop();
+
+        System.out.println("Goodbye (:");
 
         System.exit(0);
     }
@@ -67,7 +65,7 @@ public class Main {
                     break;
 
                 case 4:
-                    FindUserAndDisplay();
+                    FindSubAndDisplay();
                     break;
 
                 default:
@@ -77,6 +75,9 @@ public class Main {
         } while (RunLoop);
     }
 
+    /**
+     * Runs the summaries function
+     */
     private static void SummariesSubscriptions() {
 
         ArrayList<Subscription> subscriptionList = ReadFile();
@@ -110,7 +111,7 @@ public class Main {
 
         }
 
-        System.out.print("Total number of subscriptions: ");
+        System.out.print("Total number of subscriptions:");
         System.out.println(subscriptionList.size());
 
         System.out.print("Average monthly subscriptions: ");
@@ -127,15 +128,11 @@ public class Main {
 
     }
 
-    private static ArrayList<Subscription> ReadFile() {
-        System.out.print("Reading file");
-        ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions();
-        System.out.println("...DONE");
-        System.out.println();
-        return subscriptionList;
-    }
-
-    private static void FindUserAndDisplay() {
+    /**
+     * Runs the find subscription function
+     * summarizes all subscriptions
+     */
+    private static void FindSubAndDisplay() {
 
         System.out.print("Input Name to search for: ");
         String searchString;
@@ -164,6 +161,9 @@ public class Main {
         }
     }
 
+    /**
+     * Summaries subscription for a given month
+     */
     private static void SelectMonthsSubscriptions() {
 
         float totalCost = 0;
@@ -218,6 +218,11 @@ public class Main {
 
     }
 
+    /**
+     * Creates a new subscription from user input
+     * 
+     * @return new subscription
+     */
     private static Subscription CreateNewSubscription() {
 
         Subscription newSubscription = new Subscription();
@@ -286,5 +291,16 @@ public class Main {
         newSubscription.StartSubscription();
 
         return newSubscription;
+    }
+
+    /**
+     * @returns subscriptions from file
+     */
+    private static ArrayList<Subscription> ReadFile() {
+        System.out.print("Reading file");
+        ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions();
+        System.out.println("...DONE");
+        System.out.println();
+        return subscriptionList;
     }
 }
