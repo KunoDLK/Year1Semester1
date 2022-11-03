@@ -391,12 +391,7 @@ public class Subscription {
      * @return true/false if is a letter
      */
     private static boolean isLetterAToZ(char letter) {
-
-        if (letter >= 'A' && letter <= 'Z') {
-            return true;
-        } else {
-            return false;
-        }
+        return (letter >= 'A' && letter <= 'Z');
     }
 
     // #endregion Private Methods
