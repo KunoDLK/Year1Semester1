@@ -4,6 +4,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import subscriptionmanager.Subscription.PaymentTerms;
 import subscriptionmanager.Subscription.SubPackages;
@@ -15,7 +16,6 @@ import subscriptionmanager.Subscription.SubPackages;
  */
 public class Main {
 
-    static ConsoleMethods consoleMethods;
     static DecimalFormat decimalFormatter;
 
     /**
@@ -25,7 +25,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        consoleMethods = new ConsoleMethods();
+        ConsoleMethods.scanner = new Scanner(System.in);
         decimalFormatter = new DecimalFormat("#.##");
         decimalFormatter.setRoundingMode(RoundingMode.HALF_UP);
 
@@ -45,14 +45,14 @@ public class Main {
         boolean RunLoop = true;
 
         do {
-            int menuChoice = consoleMethods.RunMenu();
+            int menuChoice = ConsoleMethods.RunMenu();
             switch (menuChoice) {
                 case 0:
                     RunLoop = false;
                     break;
                 case 1:
                     Subscription newSubscription = CreateNewSubscription();
-                    consoleMethods.DisplaySubscription(newSubscription);
+                    ConsoleMethods.DisplaySubscription(newSubscription);
                     FileIO.AddSubscriptionToFile(newSubscription);
                     break;
 
@@ -137,7 +137,7 @@ public class Main {
         System.out.print("Input Name to search for: ");
         String searchString;
         do {
-            searchString = consoleMethods.GetString().toLowerCase();
+            searchString = ConsoleMethods.GetString().toLowerCase();
             
         } while (searchString.isEmpty());
 
@@ -157,7 +157,7 @@ public class Main {
 
         for (Subscription subscription : searchResults) {
 
-            consoleMethods.DisplaySubscription(subscription);
+            ConsoleMethods.DisplaySubscription(subscription);
         }
     }
 
@@ -169,7 +169,7 @@ public class Main {
         float totalCost = 0;
 
         System.out.print("Select month (1-12): ");
-        int month = consoleMethods.GetValidatedInteger(1, 12);
+        int month = ConsoleMethods.GetValidatedInteger(1, 12);
 
         ArrayList<Subscription> subscriptionList = ReadFile();
 
@@ -232,7 +232,7 @@ public class Main {
         do {
             System.out.print("Please enter Customer's name: ");
 
-            String name = consoleMethods.GetString();
+            String name = ConsoleMethods.GetString();
 
             if (name.length() <= 25) {
                 newSubscription.Name = name;
@@ -246,19 +246,19 @@ public class Main {
 
         System.out.print("Please enter package type Gold, Silver or Bronze ('G', 'S', 'B'): ");
 
-        char packageSelected = consoleMethods.GetValidatedChar(Subscription.PackageLetters);
+        char packageSelected = ConsoleMethods.GetValidatedChar(Subscription.PackageLetters);
         newSubscription.SubPackage = Subscription.GetPackage(packageSelected);
 
         System.out.print("Please enter subscription duration 1, 3, 6, 12 (months): ");
 
-        int subDuration = consoleMethods.GetValidatedInteger(Subscription.PackageDurations);
+        int subDuration = ConsoleMethods.GetValidatedInteger(Subscription.PackageDurations);
         newSubscription.Duration = subDuration;
 
         validated = false;
         do {
 
             System.out.print("Please enter discount code ('-' for no discount code): ");
-            String discountCode = consoleMethods.GetString();
+            String discountCode = ConsoleMethods.GetString();
 
             Boolean validCode = newSubscription.ValidateAndSetDiscountCode(discountCode.toUpperCase());
 
@@ -279,7 +279,7 @@ public class Main {
         System.out.print("Would you like to pay upfront, with a 5% discount ('Y'/'N'): ");
 
         char[] validChars = { 'Y', 'N' };
-        char enteredChar = consoleMethods.GetValidatedChar(validChars);
+        char enteredChar = ConsoleMethods.GetValidatedChar(validChars);
 
         if (enteredChar == 'N') {
             newSubscription.PaymentTerm = PaymentTerms.Monthly;

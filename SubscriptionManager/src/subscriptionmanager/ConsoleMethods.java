@@ -7,19 +7,7 @@ import java.util.Scanner;
  */
 public class ConsoleMethods {
 
-	public Scanner scanner;
-
-	// #region Constructor
-
-	/**
-	 * constructor for ConsoleMethods class
-	 */
-	public ConsoleMethods() {
-
-		scanner = new Scanner(System.in);
-	}
-
-	// #endregion Constructor
+	public static Scanner scanner;
 
 	// #region Pubic Methods
 
@@ -28,7 +16,7 @@ public class ConsoleMethods {
 	 * 
 	 * @return user choice, int
 	 */
-	public int RunMenu() {
+	public static int RunMenu() {
 		System.out.println();
 		System.out.print(
 				"1. Enter new Subscription\n2. Display Summary of subscriptions\n3. Display Summary of subscription for Selected Month\n4. Find and display subscription\n0. Exit\nInput Menu Number: ");
@@ -44,7 +32,7 @@ public class ConsoleMethods {
 	 * @param MaxInt Highest included integer value
 	 * @return validated integer
 	 */
-	public int GetValidatedInteger(int minInt, int MaxInt) {
+	public static int GetValidatedInteger(int minInt, int MaxInt) {
 
 		int returnInt = 0;
 		boolean validated = false;
@@ -78,7 +66,7 @@ public class ConsoleMethods {
 	 * @param validValues The possible valid values
 	 * @return validated integer
 	 */
-	public int GetValidatedInteger(int[] validValues) {
+	public static int GetValidatedInteger(int[] validValues) {
 
 		int returnInt = 0;
 		boolean validated = false;
@@ -114,7 +102,7 @@ public class ConsoleMethods {
 	 * @param validLetters the letters that are valid
 	 * @returns inputted char
 	 */
-	public char GetValidatedChar(char[] validLetters) {
+	public static char GetValidatedChar(char[] validLetters) {
 
 		char returnChar = 0;
 		boolean validated = false;
@@ -153,7 +141,7 @@ public class ConsoleMethods {
 	/**
 	 * @returns string from console
 	 */
-	public String GetString() {
+	public static String GetString() {
 		return scanner.nextLine();
 	}
 
@@ -162,7 +150,7 @@ public class ConsoleMethods {
 	 * 
 	 * @param subscription sub to display
 	 */
-	public void DisplaySubscription(Subscription subscription) {
+	public static void DisplaySubscription(Subscription subscription) {
 		DrawHorizontalLine();
 		DrawSubscriptionLine();
 
@@ -204,20 +192,20 @@ public class ConsoleMethods {
 
 	// #region Private Methods
 
-	private enum HorizontalAlignment {
+	private static enum HorizontalAlignment {
 		Center,
 		Columned
 	}
 
-	private void DrawHorizontalLine() {
+	private static void DrawHorizontalLine() {
 		System.out.println("+===============================================+");
 	}
 
-	private void DrawSubscriptionLine() {
+	private static void DrawSubscriptionLine() {
 		System.out.println("|                                               |");
 	}
 
-	private void DrawSubscriptionLine(String firstItem, String secondItem, HorizontalAlignment alignment) {
+	private static void DrawSubscriptionLine(String firstItem, String secondItem, HorizontalAlignment alignment) {
 		String stringToPrint = "|";
 
 		switch (alignment) {
