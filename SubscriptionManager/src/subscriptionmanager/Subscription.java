@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * class for subscription 
+ * class for subscription
  * with some helpful methods for converting to and from properties
  * 
  * @author kleeuwkent
@@ -44,15 +44,15 @@ public class Subscription {
 
     private double Cost;
 
-    public int Duration;
+    private int Duration;
 
-    public String StartDate;
+    private String StartDate;
 
-    public String Name;
+    private String Name;
 
-    public SubPackages SubPackage;
+    private SubPackages SubPackage;
 
-    public PaymentTerms PaymentTerm;
+    private PaymentTerms PaymentTerm;
 
     // #endregion Class Properties
 
@@ -75,7 +75,7 @@ public class Subscription {
 
         StartDate = strArray[0];
 
-        SubPackage = GetPackage(strArray[1].charAt(0));
+        SubPackage = GetPackageFromChar(strArray[1].charAt(0));
 
         Duration = Integer.parseInt(strArray[2]);
 
@@ -97,6 +97,16 @@ public class Subscription {
 
     // #region Public Methods
 
+    public Subscription(String name, SubPackages subPackage, int duration, PaymentTerms paymentTerm,
+            String discountCode) {
+
+                this.Name = name;
+                this.SubPackage = subPackage;
+                this.Duration = duration;
+                this.PaymentTerm = paymentTerm;
+                this.DiscountCode = discountCode;
+    }
+
     /**
      * @return returns discount code
      */
@@ -110,14 +120,33 @@ public class Subscription {
     public double GetCost() {
         return this.Cost;
     }
-    
+
+    /**
+     * @return returns duration
+     */
+    public int GetDuration() {
+        return this.Duration;
+    }
+
+    public String GetName() {
+        return this.Name;
+    }
+
+    public String GetStartDate() {
+        return this.StartDate;
+    }
+
+    public SubPackages GetSubPackage() {
+        return SubPackage;
+    }
+
     /**
      * Converts from char to enum of package type
      * 
      * @param packageSelected char 'G', 'S', 'B'
      * @return null if not valid char
      */
-    public static SubPackages GetPackage(char packageSelected) {
+    public static SubPackages GetPackageFromChar(char packageSelected) {
 
         for (int i = 0; i < PackageLetters.length; i++) {
             if (PackageLetters[i] == packageSelected) {
@@ -135,7 +164,7 @@ public class Subscription {
      * @param discountCode as a string
      * @return true/false if code is valid
      */
-    public boolean ValidateAndSetDiscountCode(String discountCode) {
+    public static boolean ValidateDiscountCode(String discountCode) {
 
         // code length validation
         if (discountCode.length() != 6)
@@ -197,7 +226,6 @@ public class Subscription {
         }
 
         // if code has made it this far code is valid
-        DiscountCode = discountCode;
         return true;
     }
 
@@ -252,7 +280,6 @@ public class Subscription {
         return true;
     }
 
-
     /**
      * @returns payment term as a string "One-Off"/"Monthly"
      */
@@ -288,7 +315,8 @@ public class Subscription {
     }
 
     /**
-     * Organizes subscriptions in to a structured data structure sorted by month and package type
+     * Organizes subscriptions in to a structured data structure sorted by month and
+     * package type
      * 
      * @param subscriptionList list of subscriptions
      * @return organized subscription
@@ -353,7 +381,7 @@ public class Subscription {
      * @param letter letter in question
      * @return true/false if is a letter
      */
-    private boolean isLetterAToZ(char letter) {
+    private static boolean isLetterAToZ(char letter) {
 
         if (letter >= 'A' && letter <= 'Z') {
             return true;

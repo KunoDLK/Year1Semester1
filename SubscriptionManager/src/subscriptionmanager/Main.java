@@ -12,6 +12,7 @@ import subscriptionmanager.Subscription.SubPackages;
 /**
  * Main class of application
  * Subscriptions manager
+ * 
  * @author Kuno DLK
  */
 public class Main {
@@ -138,7 +139,7 @@ public class Main {
         String searchString;
         do {
             searchString = ConsoleMethods.GetString().toLowerCase();
-            
+
         } while (searchString.isEmpty());
 
         ArrayList<Subscription> subscriptionList = ReadFile();
@@ -146,7 +147,7 @@ public class Main {
 
         for (Subscription subscription : subscriptionList) {
 
-            if (subscription.Name.toLowerCase().contains(searchString)) {
+            if (subscription.GetName().toLowerCase().contains(searchString)) {
 
                 searchResults.add(subscription);
             }
@@ -225,7 +226,11 @@ public class Main {
      */
     private static Subscription CreateNewSubscription() {
 
-        Subscription newSubscription = new Subscription();
+        Subscription.SubPackages subSubPackage;
+        String subName = "";
+        int subDuration;
+        String subDiscountCode;
+        Subscription.PaymentTerms subPaymentTerm;
 
         Boolean validated = false;
 
@@ -235,7 +240,7 @@ public class Main {
             String name = ConsoleMethods.GetString();
 
             if (name.length() <= 25) {
-                newSubscription.Name = name;
+                subName = name;
                 validated = true;
 
             } else {
@@ -247,22 +252,21 @@ public class Main {
         System.out.print("Please enter package type Gold, Silver or Bronze ('G', 'S', 'B'): ");
 
         char packageSelected = ConsoleMethods.GetValidatedChar(Subscription.PackageLetters);
-        newSubscription.SubPackage = Subscription.GetPackage(packageSelected);
+        subSubPackage = Subscription.GetPackageFromChar(packageSelected);
 
         System.out.print("Please enter subscription duration 1, 3, 6, 12 (months): ");
 
-        int subDuration = ConsoleMethods.GetValidatedInteger(Subscription.PackageDurations);
-        newSubscription.Duration = subDuration;
+        subDuration = ConsoleMethods.GetValidatedInteger(Subscription.PackageDurations);
 
         validated = false;
         do {
 
             System.out.print("Please enter discount code ('-' for no discount code): ");
-            String discountCode = ConsoleMethods.GetString();
+            subDiscountCode = ConsoleMethods.GetString();
 
-            Boolean validCode = newSubscription.ValidateAndSetDiscountCode(discountCode.toUpperCase());
+            Boolean validCode = Subscription.ValidateDiscountCode(subDiscountCode.toUpperCase());
 
-            if (discountCode.equals("-")) {
+            if (subDiscountCode.equals("-")) {
                 validated = true;
 
             } else if (!validCode) {
@@ -282,10 +286,13 @@ public class Main {
         char enteredChar = ConsoleMethods.GetValidatedChar(validChars);
 
         if (enteredChar == 'N') {
-            newSubscription.PaymentTerm = PaymentTerms.Monthly;
+            subPaymentTerm = PaymentTerms.Monthly;
         } else {
-            newSubscription.PaymentTerm = PaymentTerms.OneOff;
+            subPaymentTerm = PaymentTerms.OneOff;
         }
+
+        Subscription newSubscription = new Subscription(subName, subSubPackage, subDuration, subPaymentTerm,
+                subDiscountCode);
 
         // calculates cost and sets the start date
         newSubscription.StartSubscription();

@@ -154,16 +154,16 @@ public class ConsoleMethods {
 		DrawHorizontalLine();
 		DrawSubscriptionLine();
 
-		String item = "Customer: " + subscription.Name;
+		String item = "Customer: " + subscription.GetName();
 		DrawSubscriptionLine(item, "", HorizontalAlignment.Columned);
 
 		DrawSubscriptionLine();
 
-		item = "Date: " + subscription.StartDate;
+		item = "Date: " + subscription.GetStartDate();
 		String secondItem = "Discount Code: " + subscription.GetDiscountCode();
 		DrawSubscriptionLine(item, secondItem, HorizontalAlignment.Columned);
 
-		item = "Package: " + subscription.SubPackage.name();
+		item = "Package: " + subscription.GetSubPackage().name();
 		secondItem = "Duration: " + subscription.GetDurationAsString();
 		DrawSubscriptionLine(item, secondItem, HorizontalAlignment.Columned);
 
