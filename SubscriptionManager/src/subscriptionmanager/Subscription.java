@@ -128,14 +128,23 @@ public class Subscription {
         return this.Duration;
     }
 
+    /**
+     * @return returns name
+     */
     public String GetName() {
         return this.Name;
     }
 
+    /**
+     * @return returns start date
+     */
     public String GetStartDate() {
         return this.StartDate;
     }
 
+    /**
+     * @return returns SubPackage
+     */
     public SubPackages GetSubPackage() {
         return SubPackage;
     }
