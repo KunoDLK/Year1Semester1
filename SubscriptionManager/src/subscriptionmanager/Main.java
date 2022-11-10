@@ -91,11 +91,15 @@ public class Main {
             totalCost += subscription.GetCost();
         }
 
-        String months = "Month:\t";
-        String totalSubs = "Total:\t";
-        String bronzeSubs = "Bronze:\t";
-        String silverSubs = "Silver:\t";
-        String goldSubs = "Gold\t";
+        int totalSubs = 0;
+        int totalBronzeSubs = 0;
+        int totalSilverSubs = 0;
+        int totalGoldSubs = 0;
+        String monthsString = "Month:\t";
+        String totalSubsString = "Total:\t";
+        String bronzeSubsString = "Bronze:\t";
+        String silverSubsString = "Silver:\t";
+        String goldSubsString = "Gold\t";
 
         for (String month : DateHelper.Months) {
 
@@ -104,15 +108,20 @@ public class Main {
             int monthSilverSubs = monthSubs.get(Subscription.SubPackages.Silver).size();
             int monthGoldSubs = monthSubs.get(Subscription.SubPackages.Gold).size();
 
-            months += month + "\t";
-            bronzeSubs += monthBronzeSubs + "\t";
-            silverSubs += monthSilverSubs + "\t";
-            goldSubs += monthGoldSubs + "\t";
-            totalSubs += (monthBronzeSubs + monthSilverSubs + monthGoldSubs) + "\t";
+            monthsString += month + "\t";
+            bronzeSubsString += monthBronzeSubs + "\t";
+            totalBronzeSubs += monthBronzeSubs;
+            silverSubsString += monthSilverSubs + "\t";
+            totalSilverSubs += monthSilverSubs;
+            goldSubsString += monthGoldSubs + "\t";
+            totalGoldSubs += monthGoldSubs;
 
+            int totalAddition = (monthBronzeSubs + monthSilverSubs + monthGoldSubs);
+            totalSubs += totalAddition;
+            totalSubsString +=  totalAddition + "\t";
         }
 
-        System.out.print("Total number of subscriptions:");
+        System.out.print("Total number of subscriptions: ");
         System.out.println(subscriptionList.size());
 
         System.out.print("Average monthly subscriptions: ");
@@ -120,46 +129,28 @@ public class Main {
 
         System.out.print("Average monthly subscription fee: £");
         System.out.println(decimalFormatter.format(totalCost / subscriptionList.size()));
+        System.out.println();
 
-        System.out.println(months);
-        System.out.println(totalSubs);
-        System.out.println(bronzeSubs);
-        System.out.println(silverSubs);
-        System.out.println(goldSubs);
+        System.out.println("Percentage of subscriptions:");
+        System.out.print("Bronze:\t");
+        System.out.print(decimalFormatter.format(totalBronzeSubs / (double) totalSubs * 100));
+        System.out.println("%");
 
-    }
+        System.out.print("Silver:\t");
+        System.out.print(decimalFormatter.format(totalSilverSubs / (double) totalSubs * 100));
+        System.out.println("%");
 
-    /**
-     * Runs the find subscription function
-     * summarizes all subscriptions
-     */
-    private static void FindSubAndDisplay() {
+        System.out.print("Gold:\t");
+        System.out.print(decimalFormatter.format(totalGoldSubs / (double) totalSubs * 100));
+        System.out.println("%");
+        System.out.println();
 
-        System.out.print("Input Name to search for: ");
-        String searchString;
-        do {
-            searchString = ConsoleMethods.GetString().toLowerCase();
+        System.out.println(monthsString);
+        System.out.println(totalSubsString);
+        System.out.println(bronzeSubsString);
+        System.out.println(silverSubsString);
+        System.out.println(goldSubsString);
 
-        } while (searchString.isEmpty());
-
-        ArrayList<Subscription> subscriptionList = ReadFile();
-        ArrayList<Subscription> searchResults = new ArrayList<Subscription>();
-
-        for (Subscription subscription : subscriptionList) {
-
-            if (subscription.GetName().toLowerCase().contains(searchString)) {
-
-                searchResults.add(subscription);
-            }
-        }
-
-        System.out.print("Search results:");
-        System.out.println(searchResults.size());
-
-        for (Subscription subscription : searchResults) {
-
-            ConsoleMethods.DisplaySubscription(subscription);
-        }
     }
 
     /**
@@ -203,6 +194,7 @@ public class Main {
 
         System.out.print("Average subscription fee: £");
         System.out.println(decimalFormatter.format(totalCost / totalSubs));
+        System.out.println();
 
         System.out.println("Percentage of subscriptions:");
         System.out.print("Bronze:\t");
@@ -216,7 +208,39 @@ public class Main {
         System.out.print("Gold:\t");
         System.out.print(decimalFormatter.format(monthGoldSubs.size() / (double) totalSubs * 100));
         System.out.println("%");
+    }
 
+        /**
+     * Runs the find subscription function
+     * summarizes all subscriptions
+     */
+    private static void FindSubAndDisplay() {
+
+        System.out.print("Input Name to search for: ");
+        String searchString;
+        do {
+            searchString = ConsoleMethods.GetString().toLowerCase();
+
+        } while (searchString.isEmpty());
+
+        ArrayList<Subscription> subscriptionList = ReadFile();
+        ArrayList<Subscription> searchResults = new ArrayList<Subscription>();
+
+        for (Subscription subscription : subscriptionList) {
+
+            if (subscription.GetName().toLowerCase().contains(searchString)) {
+
+                searchResults.add(subscription);
+            }
+        }
+
+        System.out.print("Search results:");
+        System.out.println(searchResults.size());
+
+        for (Subscription subscription : searchResults) {
+
+            ConsoleMethods.DisplaySubscription(subscription);
+        }
     }
 
     /**
