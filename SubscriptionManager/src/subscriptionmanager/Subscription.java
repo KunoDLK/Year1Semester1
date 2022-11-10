@@ -290,7 +290,7 @@ public class Subscription {
     }
 
     /**
-     * @returns payment term as a string "One-Off"/"Monthly"
+     * @return payment term as a string "One-Off"/"Monthly"
      */
     public String GetTermAsString() {
         if (PaymentTerm == PaymentTerms.OneOff) {
@@ -302,7 +302,7 @@ public class Subscription {
     }
 
     /**
-     * @returns number as spelt out word
+     * @return number as spelt out word
      */
     public String GetDurationAsString() {
         switch (this.Duration) {
@@ -364,7 +364,7 @@ public class Subscription {
     /**
      * Converse subscription object to the string line found in file
      * 
-     * @returns String line
+     * @return String line
      */
     public String ConvertToFileString() {
         String fileString = "";

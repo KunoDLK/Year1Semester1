@@ -100,7 +100,7 @@ public class ConsoleMethods {
 	 * Get's a single char from console
 	 * 
 	 * @param validLetters the letters that are valid
-	 * @returns inputted char
+	 * @return inputted char
 	 */
 	public static char GetValidatedChar(char[] validLetters) {
 
@@ -139,7 +139,7 @@ public class ConsoleMethods {
 	}
 
 	/**
-	 * @returns string from console
+	 * @return string from console
 	 */
 	public static String GetString() {
 		return scanner.nextLine();

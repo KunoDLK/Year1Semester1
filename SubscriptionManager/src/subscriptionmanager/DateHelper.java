@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * date helper for getting current dates
+ * Date helper for getting current dates
  * 
  * @author KunoDLK
  */
@@ -18,7 +18,7 @@ public class DateHelper {
     public static final String[] Months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
     /**
-     * @returns current date as string
+     * @return current date as string
      */
     public static String GetCurrentDate() {
         
@@ -28,7 +28,7 @@ public class DateHelper {
     }
 
     /**
-     * @returns current year as number E.G. 2022
+     * @return current year as number E.G. 2022
      */
     public static int GetCurrentYear() {
         Calendar cal = Calendar.getInstance();
@@ -36,7 +36,7 @@ public class DateHelper {
     }
 
     /**
-     * @returns current month as number E.G. 2 (feb)
+     * @return current month as number E.G. 2 (feb)
      */
     public static int GetCurrentMonth() {
         Calendar cal = Calendar.getInstance();
