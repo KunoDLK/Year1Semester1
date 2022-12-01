@@ -93,19 +93,28 @@ public class Subscription {
         Name = strArray[6];
     }
 
-    // #endregion Constructor
-
-    // #region Public Methods
-
+    /**
+     * Constructor with all parameters
+     * 
+     * @param name
+     * @param subPackage
+     * @param duration
+     * @param paymentTerm
+     * @param discountCode
+     */
     public Subscription(String name, SubPackages subPackage, int duration, PaymentTerms paymentTerm,
             String discountCode) {
 
-                this.Name = name;
-                this.SubPackage = subPackage;
-                this.Duration = duration;
-                this.PaymentTerm = paymentTerm;
-                this.DiscountCode = discountCode;
+        this.Name = name;
+        this.SubPackage = subPackage;
+        this.Duration = duration;
+        this.PaymentTerm = paymentTerm;
+        this.DiscountCode = discountCode;
     }
+
+    // #endregion Constructor
+
+    // #region Public Methods
 
     /**
      * @return returns discount code
@@ -115,65 +124,13 @@ public class Subscription {
     }
 
     /**
-     * @return returns cost
-     */
-    public double GetCost() {
-        return this.Cost;
-    }
-
-    /**
-     * @return returns duration
-     */
-    public int GetDuration() {
-        return this.Duration;
-    }
-
-    /**
-     * @return returns name
-     */
-    public String GetName() {
-        return this.Name;
-    }
-
-    /**
-     * @return returns start date
-     */
-    public String GetStartDate() {
-        return this.StartDate;
-    }
-
-    /**
-     * @return returns SubPackage
-     */
-    public SubPackages GetSubPackage() {
-        return SubPackage;
-    }
-
-    /**
-     * Converts from char to enum of package type
-     * 
-     * @param packageSelected char 'G', 'S', 'B'
-     * @return null if not valid char
-     */
-    public static SubPackages GetPackageFromChar(char packageSelected) {
-
-        for (int i = 0; i < PackageLetters.length; i++) {
-            if (PackageLetters[i] == packageSelected) {
-                return IndexedSubPackages[i];
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Validates Discount code,
      * will set discount code if valid
      * 
      * @param discountCode as a string
      * @return true/false if code is valid
      */
-    public static boolean ValidateDiscountCode(String discountCode) {
+    public static boolean SetDiscountCode(String discountCode) {
 
         // code length validation
         if (discountCode.length() != 6)
@@ -239,12 +196,109 @@ public class Subscription {
     }
 
     /**
+     * @return returns cost
+     */
+    public double GetCost() {
+        return this.Cost;
+    }
+
+    /**
+     * @return returns duration
+     */
+    public int GetDuration() {
+        return this.Duration;
+    }
+
+    public void SetDuration(int duration) {
+
+        for (int validDuration : PackageDurations) {
+            if (duration == validDuration) {
+                this.Duration = duration;
+                return;
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid duration given");
+    }
+
+    /**
+     * @return returns name
+     */
+    public String GetName() {
+        return this.Name;
+    }
+
+    public void SetName(String name) {
+        if (name.length() <= 25) {
+            this.Name = name;
+        } else {
+            throw new IllegalArgumentException("Name is too long (25 char max)");
+        }
+    }
+
+    /**
+     * @return returns start date
+     */
+    public String GetStartDate() {
+        return this.StartDate;
+    }
+
+    /**
+     * @return returns SubPackage
+     */
+    public SubPackages GetSubPackage() {
+        return SubPackage;
+    }
+
+    public void SetSubPackage(SubPackages packages) {
+
+        if (packages != null) {
+            this.SubPackage = packages;
+        } else {
+            throw new NullPointerException("Package is null");
+        }
+    }
+
+    public void SetTerm(PaymentTerms setTerm) {
+
+        if (setTerm != null) {
+            this.PaymentTerm = setTerm;
+        } else {
+            throw new NullPointerException("Term is null");
+        }
+
+    }
+
+    /**
+     * Converts from char to enum of package type
+     * 
+     * @param packageSelected char 'G', 'S', 'B'
+     * @return null if not valid char
+     */
+    public static SubPackages GetPackageFromChar(char packageSelected) {
+
+        for (int i = 0; i < PackageLetters.length; i++) {
+            if (PackageLetters[i] == packageSelected) {
+                return IndexedSubPackages[i];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Calculates the cost of the subscription
      * and sets the start date to today
      * 
      * @return true if subscription is valid and started
      */
     public boolean StartSubscription() {
+
+        if (this.Name == null || this.Name.equals(""))
+        {
+            System.out.println("ERROR, you can not start subscription. Name not Set");
+            return false;
+        }
 
         int subPackageIndex;
 

@@ -256,6 +256,8 @@ public class Main {
         String subDiscountCode;
         Subscription.PaymentTerms subPaymentTerm;
 
+        Subscription newSubscription = new Subscription();
+
         Boolean validated = false;
 
         do {
@@ -273,14 +275,18 @@ public class Main {
 
         } while (!validated);
 
+        newSubscription.SetName(subName);
+
         System.out.print("Please enter package type Gold, Silver or Bronze ('G', 'S', 'B'): ");
 
         char packageSelected = ConsoleMethods.GetValidatedChar(Subscription.PackageLetters);
         subSubPackage = Subscription.GetPackageFromChar(packageSelected);
+        newSubscription.SetSubPackage(subSubPackage);
 
         System.out.print("Please enter subscription duration 1, 3, 6, 12 (months): ");
 
         subDuration = ConsoleMethods.GetValidatedInteger(Subscription.PackageDurations);
+        newSubscription.SetDuration(subDuration);
 
         validated = false;
         do {
@@ -288,7 +294,7 @@ public class Main {
             System.out.print("Please enter discount code ('-' for no discount code): ");
             subDiscountCode = ConsoleMethods.GetString();
 
-            Boolean validCode = Subscription.ValidateDiscountCode(subDiscountCode.toUpperCase());
+            Boolean validCode = Subscription.SetDiscountCode(subDiscountCode.toUpperCase());
 
             if (subDiscountCode.equals("-")) {
                 validated = true;
@@ -315,8 +321,7 @@ public class Main {
             subPaymentTerm = PaymentTerms.OneOff;
         }
 
-        Subscription newSubscription = new Subscription(subName, subSubPackage, subDuration, subPaymentTerm,
-                subDiscountCode);
+        newSubscription.SetTerm(subPaymentTerm);
 
         // calculates cost and sets the start date
         newSubscription.StartSubscription();
