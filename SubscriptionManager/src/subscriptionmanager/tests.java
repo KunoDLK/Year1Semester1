@@ -2,9 +2,6 @@ package subscriptionmanager;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Scanner;
-
-import org.junit.Assert;
 import org.junit.Test;
 
 import subscriptionmanager.Subscription.PaymentTerms;
