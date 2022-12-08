@@ -12,32 +12,39 @@ public class ConsoleMethods {
 	// #region Pubic Methods
 
 	/**
-	 * Displays menu to the console, gets a validated response from console
+	 * Displays a menu of options to the console and gets a validated response from
+	 * the user.
 	 * 
-	 * @return user choice, int
+	 * @return The user's selected menu option, as an integer.
 	 */
-	public static int RunMenu() {
+	public static int runMenu() {
+		// Print menu options
 		System.out.println();
-		System.out.print(
-				"1. Enter new Subscription\n2. Display Summary of subscriptions\n3. Display Summary of subscription for Selected Month\n4. Find and display subscription\n0. Exit\nInput Menu Number: ");
+		System.out.println("1. Enter new Subscription");
+		System.out.println("2. Display Summary of subscriptions");
+		System.out.println("3. Display Summary of subscription for Selected Month");
+		System.out.println("4. Find and display subscription");
+		System.out.println("0. Exit");
+		System.out.print("Input Menu Number: ");
 
-		int menuOption = GetValidatedInteger(0, 4);
-		return menuOption;
+		// Get and return validated user input
+		return GetValidatedInteger(0, 4);
 	}
 
 	/**
-	 * Get's a validated integer value from the console
-	 * 
-	 * @param minInt lowest included integer value
-	 * @param MaxInt Highest included integer value
-	 * @return validated integer
+	 * Prompts the user for input and parses it as an integer.
+	 * The method continues to prompt the user until a valid
+	 * integer within the specified range is entered.
+	 *
+	 * @param minInt the minimum valid integer
+	 * @param maxInt the maximum valid integer
+	 * @return the user's integer
 	 */
 	public static int GetValidatedInteger(int minInt, int MaxInt) {
 
 		int returnInt = 0;
-		boolean validated = false;
 
-		do {
+		while (true) {
 			try {
 
 				String userInputStr = GetString();
@@ -55,9 +62,7 @@ public class ConsoleMethods {
 				System.out.println("^^^^Incorrect Input");
 				// go round loop again
 			}
-		} while (!validated);
-
-		return returnInt;
+		}
 	}
 
 	/**
@@ -66,14 +71,11 @@ public class ConsoleMethods {
 	 * @param validValues The possible valid values
 	 * @return validated integer
 	 */
-	public static int GetValidatedInteger(int[] validValues) {
-
+	public static int getValidatedInteger(int[] validValues) {
 		int returnInt = 0;
-		boolean validated = false;
 
-		do {
+		while (true) {
 			try {
-
 				String userInputStr = GetString();
 				returnInt = Integer.parseInt(userInputStr);
 
@@ -91,9 +93,7 @@ public class ConsoleMethods {
 				System.out.println("^^^^Incorrect Input");
 				// go round loop again
 			}
-		} while (!validated);
-
-		return returnInt;
+		}
 	}
 
 	/**
