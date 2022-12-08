@@ -289,19 +289,19 @@ public class Subscription {
     /**
      * Calculates the cost of the subscription
      * and sets the start date to today
-     * 
+     *
      * @return true if subscription is valid and started
      */
     public boolean StartSubscription() {
 
-        if (this.Name == null || this.Name.equals(""))
-        {
+        // Check if the name is set
+        if (this.Name == null || this.Name.equals("")) {
             System.out.println("ERROR, you can not start subscription. Name not Set");
             return false;
         }
 
+        // Check if the subscription package is set
         int subPackageIndex;
-
         if (this.SubPackage != null) {
             subPackageIndex = this.SubPackage.ordinal();
 
@@ -311,6 +311,7 @@ public class Subscription {
             return false;
         }
 
+        // Check if the duration is set correctly
         int durationIndex = -1;
         for (int i = 0; i <= 3; i++) {
             if (PackageDurations[i] == this.Duration) {
@@ -323,21 +324,23 @@ public class Subscription {
             return false;
         }
 
+        // Calculate the cost of the subscription
         this.Cost = SubscriptionRates[subPackageIndex][durationIndex];
 
-        // knocks 5%off is payed upfront
+        // Apply discount for OneOff payment
         if (PaymentTerm == PaymentTerms.OneOff) {
             this.Cost *= this.Duration;
             this.Cost *= 0.95;
         }
 
-        // Knocks off the discount from the discount code
+        // Apply discount from the discount code
         if (!DiscountCode.equals("-")) {
             char discountChar = DiscountCode.charAt(5);
             Double discount = Double.parseDouble("0.0" + String.valueOf(discountChar));
             this.Cost *= (1 - discount);
         }
 
+        // Set the start date
         StartDate = DateHelper.GetCurrentDate();
 
         return true;
@@ -378,20 +381,19 @@ public class Subscription {
     }
 
     /**
-     * Organizes subscriptions in to a structured data structure sorted by month and
-     * package type
+     * Organizes subscriptions into a structured data structure sorted by month and
+     * package type.
      * 
-     * @param subscriptionList list of subscriptions
-     * @return organized subscription
+     * @param subscriptionList The list of subscriptions to be organized.
+     * @return A map of organized subscriptions, sorted by month and package type.
      */
     public static HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> OrginiseSubscriptions(
             ArrayList<Subscription> subscriptionList) {
 
         HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>> organizedSubscriptions = new HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>>();
 
-        // adds entires for each month
+        // Adds entries for each month
         for (String month : DateHelper.Months) {
-
             organizedSubscriptions.put(month, new HashMap<Subscription.SubPackages, ArrayList<Subscription>>());
         }
 
@@ -402,13 +404,10 @@ public class Subscription {
             v.put(SubPackages.Gold, new ArrayList<Subscription>());
         });
 
-        // Place subscriptions into organized hash map
+        // Place subscriptions into organized map
         for (Subscription subscription : subscriptionList) {
-
             String key1 = subscription.StartDate.substring(3, 6);
-
             SubPackages key2 = subscription.SubPackage;
-
             organizedSubscriptions.get(key1).get(key2).add(subscription);
         }
 
@@ -416,22 +415,23 @@ public class Subscription {
     }
 
     /**
-     * Converse subscription object to the string line found in file
+     * Converts the current subscription data to a string suitable for writing to a
+     * file.
      * 
-     * @return String line
+     * @return the file string representation of the subscription data.
      */
     public String ConvertToFileString() {
-        String fileString = "";
+        StringBuilder fileString = new StringBuilder();
 
-        fileString += this.StartDate + "\t";
-        fileString += this.SubPackage.name().charAt(0) + "\t";
-        fileString += this.Duration + "\t";
-        fileString += this.GetDiscountCode() + "\t";
-        fileString += this.GetTermAsString().charAt(0) + "\t";
-        fileString += String.valueOf((int) (this.GetCost() * 100)) + "\t";
-        fileString += this.Name;
+        fileString.append(this.StartDate).append("\t");
+        fileString.append(this.SubPackage.name().charAt(0)).append("\t");
+        fileString.append(this.Duration).append("\t");
+        fileString.append(this.GetDiscountCode()).append("\t");
+        fileString.append(this.GetTermAsString().charAt(0)).append("\t");
+        fileString.append((int) (this.GetCost() * 100)).append("\t");
+        fileString.append(this.Name);
 
-        return fileString;
+        return fileString.toString();
     }
 
     // #endregion Public Methods
