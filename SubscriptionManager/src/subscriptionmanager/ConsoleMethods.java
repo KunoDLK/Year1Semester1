@@ -17,7 +17,7 @@ public class ConsoleMethods {
 	 * 
 	 * @return The user's selected menu option, as an integer.
 	 */
-	public static int runMenu() {
+	public static int RunMenu() {
 		// Print menu options
 		System.out.println();
 		System.out.println("1. Enter new Subscription");
@@ -71,7 +71,7 @@ public class ConsoleMethods {
 	 * @param validValues The possible valid values
 	 * @return validated integer
 	 */
-	public static int getValidatedInteger(int[] validValues) {
+	public static int GetValidatedInteger(int[] validValues) {
 		int returnInt = 0;
 
 		while (true) {
