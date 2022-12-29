@@ -197,10 +197,16 @@ public class ConsoleMethods {
 		Columned
 	}
 
+	/**
+	 * Draws a horizontal line on the console.
+	 */
 	private static void DrawHorizontalLine() {
 		System.out.println("+===============================================+");
 	}
 
+	/**
+	 * Draws a subscription line on the console.
+	 */
 	private static void DrawSubscriptionLine() {
 		System.out.println("|                                               |");
 	}
