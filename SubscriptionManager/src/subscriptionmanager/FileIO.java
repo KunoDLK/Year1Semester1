@@ -12,6 +12,7 @@ import java.util.Scanner;
  */
 public class FileIO {
 
+    private final static String _FilePath = "current.txt";
         /**
          * Get's all subscriptions from the file
          * 
@@ -21,7 +22,7 @@ public class FileIO {
 
                 ArrayList<Subscription> SubscriptionList = new ArrayList<Subscription>();
                 try {
-                        File file = new File("SubscriptionManager/current.txt");
+                        File file = new File(_FilePath);
 
                         if (!file.isFile()) {
                                 file.createNewFile();
@@ -60,13 +61,13 @@ public class FileIO {
 
                 try {
 
-                        File file = new File("SubscriptionManager/current.txt");
+                        File file = new File(_FilePath);
 
                         if (!file.isFile()) {
                                 file.createNewFile();
                         }
 
-                        FileWriter fileWriter = new FileWriter("SubscriptionManager/current.txt", true);
+                        FileWriter fileWriter = new FileWriter(_FilePath, true);
                         fileWriter.append(fileString);
                         fileWriter.append("\r\n");
                         fileWriter.close();

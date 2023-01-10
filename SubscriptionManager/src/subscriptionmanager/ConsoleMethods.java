@@ -66,10 +66,11 @@ public class ConsoleMethods {
 	}
 
 	/**
-	 * Get's a validated integer value from the console
-	 * 
-	 * @param validValues The possible valid values
-	 * @return validated integer
+	 * Reads user input and returns a validated integer from the given array of
+	 * valid values.
+	 *
+	 * @param validValues an array of valid integer values
+	 * @return a validated integer value
 	 */
 	public static int GetValidatedInteger(int[] validValues) {
 		int returnInt = 0;
@@ -97,11 +98,13 @@ public class ConsoleMethods {
 	}
 
 	/**
-	 * Get's a single char from console
-	 * 
-	 * @param validLetters the letters that are valid
-	 * @return inputted char
+	 * Reads user input and returns a validated character from the given array of
+	 * valid characters.
+	 *
+	 * @param validLetters an array of valid character values
+	 * @return a validated character value
 	 */
+
 	public static char GetValidatedChar(char[] validLetters) {
 
 		char returnChar = 0;
@@ -116,6 +119,7 @@ public class ConsoleMethods {
 					System.out.println("^^^^Expected Single Character");
 					continue;
 				}
+				
 				userInputStr = userInputStr.toUpperCase();
 				returnChar = userInputStr.charAt(0);
 

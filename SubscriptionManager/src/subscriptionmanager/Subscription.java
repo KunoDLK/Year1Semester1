@@ -2,6 +2,9 @@ package subscriptionmanager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * class for subscription
@@ -390,6 +393,9 @@ public class Subscription {
     public static HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> OrginiseSubscriptions(
             ArrayList<Subscription> subscriptionList) {
 
+        System.out.print("Organizing subscription");
+        long startTime = System.currentTimeMillis();
+
         HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>> organizedSubscriptions = new HashMap<String, HashMap<Subscription.SubPackages, ArrayList<Subscription>>>();
 
         // Adds entries for each month
@@ -404,13 +410,29 @@ public class Subscription {
             v.put(SubPackages.Gold, new ArrayList<Subscription>());
         });
 
-        // Place subscriptions into organized map
+        int numOfThreads = Runtime.getRuntime().availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfThreads);
+
         for (Subscription subscription : subscriptionList) {
-            String key1 = subscription.StartDate.substring(3, 6);
-            SubPackages key2 = subscription.SubPackage;
-            organizedSubscriptions.get(key1).get(key2).add(subscription);
+            Runnable task = () -> {
+                String key1 = subscription.StartDate.substring(3, 6);
+                SubPackages key2 = subscription.SubPackage;
+                organizedSubscriptions.get(key1).get(key2).add(subscription);
+            };
+            executor.submit(task);
         }
 
+        executor.shutdown();
+        try {
+            executor.awaitTermination(2, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            // handle exception
+        }
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        System.out.println("...DONE (" + elapsedTime + "ms)");
         return organizedSubscriptions;
     }
 

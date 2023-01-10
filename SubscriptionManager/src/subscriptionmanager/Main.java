@@ -86,6 +86,8 @@ public class Main {
         HashMap<String, HashMap<SubPackages, ArrayList<Subscription>>> organizedSubscriptions = Subscription
                 .OrginiseSubscriptions(subscriptionList);
 
+        System.out.println();
+        
         float totalCost = 0;
         for (Subscription subscription : subscriptionList) {
             totalCost += subscription.GetCost();
@@ -118,7 +120,7 @@ public class Main {
 
             int totalAddition = (monthBronzeSubs + monthSilverSubs + monthGoldSubs);
             totalSubs += totalAddition;
-            totalSubsString +=  totalAddition + "\t";
+            totalSubsString += totalAddition + "\t";
         }
 
         System.out.print("Total number of subscriptions: ");
@@ -170,7 +172,9 @@ public class Main {
 
         HashMap<SubPackages, ArrayList<Subscription>> monthSubs = organizedSubscriptions
                 .get(DateHelper.Months[month - 1]);
-
+        
+        System.out.println();
+    
         ArrayList<Subscription> monthBronzeSubs = monthSubs.get(Subscription.SubPackages.Bronze);
         ArrayList<Subscription> monthSilverSubs = monthSubs.get(Subscription.SubPackages.Silver);
         ArrayList<Subscription> monthGoldSubs = monthSubs.get(Subscription.SubPackages.Gold);
@@ -210,7 +214,7 @@ public class Main {
         System.out.println("%");
     }
 
-        /**
+    /**
      * Runs the find subscription function
      * summarizes all subscriptions
      */
@@ -334,9 +338,14 @@ public class Main {
      */
     private static ArrayList<Subscription> ReadFile() {
         System.out.print("Reading file");
+        long startTime = System.currentTimeMillis();
+
         ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions();
-        System.out.println("...DONE");
-        System.out.println();
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        System.out.println("...DONE (" + elapsedTime + "ms)");
         return subscriptionList;
     }
 }
