@@ -133,7 +133,7 @@ public class Subscription {
      * @param discountCode as a string
      * @return true/false if code is valid
      */
-    public static boolean SetDiscountCode(String discountCode) {
+    public boolean SetDiscountCode(String discountCode) {
 
         // code length validation
         if (discountCode.length() != 6)
@@ -186,14 +186,15 @@ public class Subscription {
             String discountPercentageChar = discountCode.substring(5);
             int discountPercentage = Integer.parseInt(discountPercentageChar);
 
-            if (discountPercentage < 1 && discountPercentage > 9)
-                return true;
+            if (discountPercentage < 1 || discountPercentage > 9)
+                return false;
 
         } catch (NumberFormatException e) {
 
             return false;
         }
-
+ 
+        DiscountCode = discountCode;
         // if code has made it this far code is valid
         return true;
     }
@@ -340,7 +341,7 @@ public class Subscription {
         if (!DiscountCode.equals("-")) {
             char discountChar = DiscountCode.charAt(5);
             Double discount = Double.parseDouble("0.0" + String.valueOf(discountChar));
-            this.Cost *= (1 - discount);
+            this.Cost *= (1.0 - discount);
         }
 
         // Set the start date

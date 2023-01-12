@@ -10,9 +10,8 @@ import subscriptionmanager.Subscription.PaymentTerms;
 import subscriptionmanager.Subscription.SubPackages;
 
 /**
- * Main class of application
- * Subscriptions manager
- * 
+ * Main class of application Subscriptions manager
+ *
  * @author Kuno DLK
  */
 public class Main {
@@ -21,7 +20,7 @@ public class Main {
 
     /**
      * Main constructor
-     * 
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -87,7 +86,7 @@ public class Main {
                 .OrginiseSubscriptions(subscriptionList);
 
         System.out.println();
-        
+
         float totalCost = 0;
         for (Subscription subscription : subscriptionList) {
             totalCost += subscription.GetCost();
@@ -172,9 +171,9 @@ public class Main {
 
         HashMap<SubPackages, ArrayList<Subscription>> monthSubs = organizedSubscriptions
                 .get(DateHelper.Months[month - 1]);
-        
+
         System.out.println();
-    
+
         ArrayList<Subscription> monthBronzeSubs = monthSubs.get(Subscription.SubPackages.Bronze);
         ArrayList<Subscription> monthSilverSubs = monthSubs.get(Subscription.SubPackages.Silver);
         ArrayList<Subscription> monthGoldSubs = monthSubs.get(Subscription.SubPackages.Gold);
@@ -215,8 +214,7 @@ public class Main {
     }
 
     /**
-     * Runs the find subscription function
-     * summarizes all subscriptions
+     * Runs the find subscription function summarizes all subscriptions
      */
     private static void FindSubAndDisplay() {
 
@@ -249,7 +247,7 @@ public class Main {
 
     /**
      * Creates a new subscription from user input
-     * 
+     *
      * @return new subscription
      */
     private static Subscription CreateNewSubscription() {
@@ -270,6 +268,14 @@ public class Main {
             String name = ConsoleMethods.GetString();
 
             if (name.length() <= 25) {
+                if (name.length() > 0) {
+
+                    subName = name;
+                    validated = true;
+
+                } else {
+                    System.out.println("^^^^No name given");
+                }
                 subName = name;
                 validated = true;
 
@@ -298,7 +304,7 @@ public class Main {
             System.out.print("Please enter discount code ('-' for no discount code): ");
             subDiscountCode = ConsoleMethods.GetString();
 
-            Boolean validCode = Subscription.SetDiscountCode(subDiscountCode.toUpperCase());
+            Boolean validCode = newSubscription.SetDiscountCode(subDiscountCode.toUpperCase());
 
             if (subDiscountCode.equals("-")) {
                 validated = true;
@@ -312,11 +318,12 @@ public class Main {
             }
 
         } while (!validated);
+        
 
         // gets what term the subscription is
         System.out.print("Would you like to pay upfront, with a 5% discount ('Y'/'N'): ");
 
-        char[] validChars = { 'Y', 'N' };
+        char[] validChars = {'Y', 'N'};
         char enteredChar = ConsoleMethods.GetValidatedChar(validChars);
 
         if (enteredChar == 'N') {
@@ -339,12 +346,11 @@ public class Main {
     private static ArrayList<Subscription> ReadFile() {
 
         System.out.println("Select file:");
-        for (int i = 0; i < FileIO._ReadFiles.size(); i++)         
-        {
-            System.out.println(FileIO._ReadFiles.get(i) + " (" + (i + 1) +")");
+        for (int i = 0; i < FileIO._ReadFiles.size(); i++) {
+            System.out.println(FileIO._ReadFiles.get(i) + " (" + (i + 1) + ")");
         }
 
-        int fileOption = ConsoleMethods.GetValidatedInteger(1,FileIO._ReadFiles.size());
+        int fileOption = ConsoleMethods.GetValidatedInteger(1, FileIO._ReadFiles.size());
 
         System.out.print("Reading file");
         long startTime = System.currentTimeMillis();

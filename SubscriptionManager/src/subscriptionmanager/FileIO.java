@@ -46,8 +46,12 @@ public class FileIO {
 
                         Scanner myReader = new Scanner(file);
                         while (myReader.hasNextLine()) {
-                                Subscription insertSubscription = new Subscription(myReader.nextLine());
+                            try
+                            {
+                                 Subscription insertSubscription = new Subscription(myReader.nextLine());
                                 SubscriptionList.add(insertSubscription);
+                            }
+                            catch (Exception e) { }
                         }
                         myReader.close();
                 } catch (FileNotFoundException e) {
