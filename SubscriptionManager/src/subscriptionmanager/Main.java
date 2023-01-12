@@ -337,10 +337,19 @@ public class Main {
      * @returns subscriptions from file
      */
     private static ArrayList<Subscription> ReadFile() {
+
+        System.out.println("Select file:");
+        for (int i = 0; i < FileIO._ReadFiles.size(); i++)         
+        {
+            System.out.println(FileIO._ReadFiles.get(i) + " (" + (i + 1) +")");
+        }
+
+        int fileOption = ConsoleMethods.GetValidatedInteger(1,FileIO._ReadFiles.size());
+
         System.out.print("Reading file");
         long startTime = System.currentTimeMillis();
 
-        ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions();
+        ArrayList<Subscription> subscriptionList = FileIO.GetAllSubscriptions(FileIO._ReadFiles.get(fileOption - 1));
 
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;

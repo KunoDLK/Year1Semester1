@@ -12,17 +12,32 @@ import java.util.Scanner;
  */
 public class FileIO {
 
-    private final static String _FilePath = "current.txt";
+        /**
+         * This is probably a mistake, however it's what is wrote in the specification
+         * I would imagine you want to write to current.txt
+         */
+        public final static String _WriteFile = "Subscription.txt";
+        public final static ArrayList<String> _ReadFiles = new ArrayList<String>();
+
+        /**
+         * Static constructor for FileIO
+         */
+        static
+        {
+                _ReadFiles.add("current.txt");
+                _ReadFiles.add("sample.txt");
+        }
+
         /**
          * Get's all subscriptions from the file
          * 
          * @return array list of subs
          */
-        public static ArrayList<Subscription> GetAllSubscriptions() {
+        public static ArrayList<Subscription> GetAllSubscriptions(String fileName) {
 
                 ArrayList<Subscription> SubscriptionList = new ArrayList<Subscription>();
                 try {
-                        File file = new File(_FilePath);
+                        File file = new File(fileName);
 
                         if (!file.isFile()) {
                                 file.createNewFile();
@@ -61,13 +76,13 @@ public class FileIO {
 
                 try {
 
-                        File file = new File(_FilePath);
+                        File file = new File(_WriteFile);
 
                         if (!file.isFile()) {
                                 file.createNewFile();
                         }
 
-                        FileWriter fileWriter = new FileWriter(_FilePath, true);
+                        FileWriter fileWriter = new FileWriter(_WriteFile, true);
                         fileWriter.append(fileString);
                         fileWriter.append("\r\n");
                         fileWriter.close();
